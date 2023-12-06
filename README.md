@@ -1,8 +1,111 @@
-# React + Vite
+# SPHERENDLY (MARINE & CRISTINA)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+App where different business (shops, restaurants, brands...) will be displayed including if they're:
 
-Currently, two official plugins are available:
+--> Pet-friendly.
+--> Child-friendly.
+--> Eco-friendly (don't taste in animals, second hand objects, small/local farmers...).
+--> Accessibility-friendly (accesssible technology, infrastructure and accommodations).
+--> Veg/Vegan-Friendly (vegetarian / vegan products).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# MVP:
+
+// PAGES:
+
+// ANONYMOUS PAGES (EVERYONE CAN SEE THEM):
+
+    [ ] HOMEPAGE with:
+    ---> Navbar (Home, Businesses (dropdown menu with categories?), Events, + Business (only active for users), + Events (only active for users), About, Avatar of the user or Log In).
+    ---> Title/Logo (navigate to About page if you click on it).
+    ---> Brief description of the website.
+    ---> Search bar with a dropdown menu with different cities (now: Paris and Burgos) to filter by location:
+            Placeholder of dropdown menu --> "Where do you want to explore?"
+            Button --> "Let's go!"
+    ---> Footer with Copyright and Organisation Logo (navigate to About page if you click on the logo).
+
+    [ ] BUSINESS page with:
+    ---> Navbar as before.
+    ---> Logo somewhere.
+    ---> Brief description like... "Explore businesses, don't forget you can modify the filters to find just what you need".
+    ---> Filters bar (by location or type of friendly).
+    ---> List of all businesses on the left (card format with fav button, only active for users, if someone clicks and it isn't logged in, the log in form appears).
+    ---> Google maps on the right.
+    ---> Footer as before.
+
+    [ ] EVENTS page with:
+    ---> Navbar as before.
+    ---> Logo somewhere.
+    ---> Brief description like... "Explore events, don't forget you can modify the filters to find just what you need".
+    ---> Filters bar (by location or type of friendly).
+    ---> List of all events on the left (card format with fav button, only active for users, if someone clicks and it isn't logged in, the log in form appears).
+    ---> Google maps on the right.
+    ---> Footer as before.
+
+    [ ] ABOUT page with:
+    ---> Navbar as before.
+    ---> App Logo and description.
+    ---> Organisation Logo and description.
+    ---> Footer as before.
+
+// PRIVATE PAGES (ONLY USERS CAN SEE THEM):
+
+    [ ] BUSINESS DETAILS page with:
+    ---> Navbar as before.
+    ---> Logo somewhere.
+    ---> Back button.
+    ---> Big card with all the details of the business and its location in google maps.
+    ---> Edit and delete buttons (only active for owners).
+    ---> Footer as before.
+
+    [ ] EVENTS DETAILS page with:
+    ---> Navbar as before.
+    ---> Logo somewhere.
+    ---> Back button.
+    ---> Big card with all the details of the event and its location in google maps.
+    ---> Edit and delete buttons (only active for organizers).
+    ---> Footer as before.
+
+// COMPONENTS:
+
+    ** FOR CREATE AND EDIT COMPONENTS DESIGN WOULD BE NICE TO HAVE THE CREATE/EDIT FORM ON A SIDE, AND THE CARD ON THE OTHER, SO YOU CAN SEE HOW THE CARD WILL LOOK AT THE SAME TIME YOU WRITE. (Render form on one side and Card in the other with real time changes appearing).
+
+    [ ] Create Business*
+    [ ] Create Event*
+
+    [ ] Edit Business (Dialog MUI?)*
+    [ ] Edit Event (Dialog MUI?)*
+
+    [ ] Delete Business (and go back to all business page).
+    [ ] Delete Event (ang go back to all events page).
+
+    [ ] Log In component with sign up button in case the user is not registered yet.
+
+    [ ] Business card.
+    [ ] Event card.
+
+    [ ] Filter Businesses.
+    [ ] Filter Events.
+
+# IMPROVEMENTS:
+
+[ ] Responsive Design (transform navbar on a sidebar menu for mobiles).
+
+[ ] Protect owner's resource (only give permission to update and delete to the creator of the 'post').
+
+[ ] Have another page for User profile, where the user can edit the info and even delete the profile. In that case, add action to the avatar in navbar, to navigate to this page when clicked.
+
+[ ] Add 'Fav' button to business and event cards, add a fav property to user schema, that would be an array.
+
+[ ] Enable the user to upload an image (Cloudinary).
+
+[ ] GeoJSON.
+
+[ ] Loader.jsx
+
+[ ] Title.jsx with title and icon.
+
+[ ] Do we need a Context Hook?
+
+[ ] Real time chat???
+
+[ ] typeOfUser: ["owner", "user"].
