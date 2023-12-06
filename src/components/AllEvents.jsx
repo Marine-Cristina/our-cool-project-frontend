@@ -6,6 +6,7 @@ const API_URL = "http://localhost:5005";
 
 function AllEvent() {
   const [event, setEvent] = useState([]);
+  console.log('hello events')
 
   const getAllEvents = () => {
     axios
@@ -20,10 +21,10 @@ function AllEvent() {
 
   return (
     <div>
-      {event.map((event) => {
+      {event && event.map((event, i) => {
         return (
-          <div key={event.id}>
-            <Link to={`/events/${event.id}`}> </Link>
+          <div key={i}>
+            <Link to={`/events/${event._id}`}> {event._id}</Link>
           </div>
         );
       })}
