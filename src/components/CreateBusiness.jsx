@@ -4,13 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function CreateBusiness() {
   const navigate = useNavigate();
-  const { business_id } = useParams();
+  const { user_id } = useParams();
+
   const [userData, setUserData] = useState({
     name: "",
     location: "",
-    coordinates: [0, 0],
+    coordinates: {latitude:"", longitude:""},
     typeOfBusiness: "",
-    user: { business_id },
+    owner: { user_id },
     isPetFriendly: "",
     isChildFriendly: "",
     isEcoFriendly: "",
@@ -19,15 +20,25 @@ function CreateBusiness() {
     contacts: "",
   });
 
-  const handelInputChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
+    if (name === "latitude" || name === "longitude") {
+      setUserData({
+        ...userData,
+        coordinates: {
+          ...userData.coordinates,
+          [name]: value,
+        },
+      });
+    } else {
+      setUserData({
+        ...userData,
+        [name]: value,
+      });
+    }
   };
 
-  const handelSubmit = (e) => {
+  const handleSubmit = (e) => {
     const { name, value } = e.target;
     e.preventDefault();
     console.log(userData);
@@ -48,50 +59,56 @@ function CreateBusiness() {
           isVeganFriendly: "",
           contacts: "",
         });
-        navigate("/businesscreate"); // what's happening when the user create a business after --> redirecting on this page
       })
       .catch((error) => {
         console.log(error);
       });
   };
   return (
-    <form onSubmit={handelSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>
         <h2> Create a business</h2>
-        <label htmlFor="nameOfBusiness"> Name of the Business</label>
-        <select
-          type="text"
-          id="nameOfBusiness"
-          value={userData.name}
-          onChange={handelInputChange}
-        />
+          <input
+            htmlFor="nameOfBusiness"
+            type="text"
+            id="nameOfBusiness"
+            value={userData.name}
+            onChange={handleInputChange}
+          >
+            Name of the Business
+          </input>
       </div>
       <div>
         <label htmlFor="location">Location</label>
         <select
           id="location"
           value={userData.location}
-          onChange={handelInputChange}
+          onChange={handleInputChange}
         >
           <option value="Paris">Paris</option>
           <option value="Burgos">Burgos</option>
         </select>
       </div>
       <div>
-        <label htmlFor="coordinates"> Where is it ?</label>
-        <select
-          type="text"
-          id="locationOfBusiness"
-          value={userData.coordinates}
-          onChange={handelInputChange}
-        />
-      </div>
+          <input
+            type="text"
+            id="latitude"
+            value={userData.coordinates}
+            onChange={handleInputChange} >Where is it ?</input>
+                <input 
+                type="text"
+                id="longitude"
+                name="longitude"
+                value={userData.coordinates.longitude}
+                onChange={handleInputChange}>
+                </input>
+            </div>
       <div>
         <label htmlFor="typeOfBusiness"> what it is ?</label>
         <select
           id="typeOfBusiness"
           value={userData.typeOfBusiness}
-          onChange={handelInputChange}
+          onChange={handleInputChange}
         >
           <option value="hotel">otel</option>
           <option value="restaurant">Restaurant</option>
@@ -110,7 +127,7 @@ function CreateBusiness() {
           <select
             id="isPetFriendly"
             value={userData.isPetFriendly}
-            onChange={handelInputChange}
+            onChange={handleInputChange}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
@@ -120,7 +137,7 @@ function CreateBusiness() {
           <select
             id="isChildFriendly"
             value={userData.isChildFriendly}
-            onChange={handelInputChange}
+            onChange={handleInputChange}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
@@ -130,7 +147,7 @@ function CreateBusiness() {
           <select
             id="isEcoFriendly"
             value={userData.isEcoFriendly}
-            onChange={handelInputChange}
+            onChange={handleInputChange}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
@@ -140,7 +157,7 @@ function CreateBusiness() {
           <select
             id="isAccessibilityFriendly"
             value={userData.isAccessibilityFriendly}
-            onChange={handelInputChange}
+            onChange={handleInputChange}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
@@ -150,7 +167,7 @@ function CreateBusiness() {
           <select
             id="isVeganFriendly"
             value={userData.isVeganFriendly}
-            onChange={handelInputChange}
+            onChange={handleInputChange}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
@@ -163,7 +180,7 @@ function CreateBusiness() {
           type="text"
           id="contacts"
           value={userData.contacts}
-          onChange={handelInputChange}
+          onChange={handleInputChange}
         />
       </div>
     </form>

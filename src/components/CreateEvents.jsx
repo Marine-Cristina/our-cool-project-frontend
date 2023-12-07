@@ -21,7 +21,7 @@ function CreateEvents() {
     contacts: "",
   });
 
-  const handelInputChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData({
       ...userData,
@@ -29,7 +29,7 @@ function CreateEvents() {
     });
   };
 
-  const handelSubmit = (e) => {
+  const handleSubmit = (e) => {
     const { name, value } = e.target;
     e.preventDefault();
     console.log(userData);
@@ -52,7 +52,6 @@ function CreateEvents() {
           isVeganFriendly: "",
           contacts: "",
         });
-        navigate("/eventscreate"); // what's happening when the user create a events after --> redirecting on this page
       })
       .catch((error) => {
         console.log(error);
@@ -60,27 +59,28 @@ function CreateEvents() {
   };
 
   return (
-    <form onSubmit={handelSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>
         <h2> Create a event </h2>
         <label htmlFor="nameOfEvent"> Name of the Event</label>
-        <select
+        <input
           type="text"
           id="nameOfEvent"
           value={userData.name}
-          onChange={handelInputChange}
+          onChange={handleInputChange}
         />
       </div>
       <div>
         <label htmlFor="location">Location</label>
-        <select
+        <label
+        type ="text"
           id="location"
           value={userData.location}
-          onChange={handelInputChange}
+          onChange={handleInputChange}
         >
           <option value="Paris">Paris</option>
           <option value="Burgos">Burgos</option>
-        </select>
+        </label>
       </div>
       <div>
         <label htmlFor="coordinates"> Where is it ?</label>
@@ -88,87 +88,86 @@ function CreateEvents() {
           type="text"
           id="locationOfEvent"
           value={userData.coordinates}
-          onChange={handelInputChange}
+          onChange={handleInputChange}
         />
       </div>
       <div>
         <label htmlFor="date">Date</label>
-        <select
+        <input
           type="date"
           id="date"
           value={userData.date}
-          onChange={handelInputChange}
-        ></select>
+          onChange={handleInputChange}
+        />
       </div>
       <div>
         <label htmlFor="organizer">
-          {" "}
           Organizer
-          <select
+          <input
             type="text"
-            id="organizeer"
+            id="organizer"
             value={userData.organizer}
-            onChange={handelInputChange}
-          ></select>
+            onChange={handleInputChange}
+          />
         </label>
       </div>
       <div>
         <label htmlFor="price">
           Price
-          <select
+          <input
             type="number"
             id="price"
             value={userData.price}
-            onChange={handelInputChange}
-          ></select>
+            onChange={handleInputChange}
+          />
         </label>
       </div>
       <div>
-        <label htmlFor="isPetFriendly">
+        <label htmlFor="isPetFriendly"> Is Pet Friendly
           <select
             id="isPetFriendly"
             value={userData.isPetFriendly}
-            onChange={handelInputChange}
+            onChange={handleInputChange}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
           </select>
         </label>
-        <label htmlFor="isChildFriendly">
+        <label htmlFor="isChildFriendly"> Is Child Friendly
           <select
             id="isChildFriendly"
             value={userData.isChildFriendly}
-            onChange={handelInputChange}
+            onChange={handleInputChange}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
           </select>
         </label>
-        <label htmlFor="isEcoFriendly">
+        <label htmlFor="isEcoFriendly"> Is Eco Friendly 
           <select
             id="isEcoFriendly"
             value={userData.isEcoFriendly}
-            onChange={handelInputChange}
+            onChange={handleInputChange}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
           </select>
         </label>
-        <label htmlFor="isAccessibilityFriendly">
+        <label htmlFor="isAccessibilityFriendly"> Is Accessibility Friendly 
           <select
             id="isAccessibilityFriendly"
             value={userData.isAccessibilityFriendly}
-            onChange={handelInputChange}
+            onChange={handleInputChange}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
           </select>
         </label>
-        <label htmlFor="isVeganFriendly">
+        <label htmlFor="isVeganFriendly"> Is Vegan Friendly 
           <select
             id="isVeganFriendly"
             value={userData.isVeganFriendly}
-            onChange={handelInputChange}
+            onChange={handleInputChange}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
@@ -177,11 +176,11 @@ function CreateEvents() {
       </div>
       <div>
         <label htmlFor="contacts"> Contact</label>
-        <select
+        <input 
           type="text"
           id="contacts"
           value={userData.contacts}
-          onChange={handelInputChange}
+          onChange={handleInputChange}
         />
       </div>
     </form>

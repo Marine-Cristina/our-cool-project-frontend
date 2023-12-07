@@ -100,13 +100,13 @@ App where different business (shops, restaurants, brands...) will be displayed i
     [X] AllBusinesses
     [X] AllEvents
 
-    [ ] DetailsOfBusiness --> Cris
+    [ ] DetailsOfBusiness --> Marine
     [ ] DetailsOfEvent --> Cris
 
     ** FOR CREATE AND EDIT COMPONENTS DESIGN WOULD BE NICE TO HAVE THE CREATE/EDIT FORM ON A SIDE, AND THE CARD ON THE OTHER, SO YOU CAN SEE HOW THE CARD WILL LOOK AT THE SAME TIME YOU WRITE. (Render form on one side and Card in the other with real time changes appearing).
 
-    [ ] Create Business* --> Marine
-    [ ] Create Event* --> Marine
+    [ /] Create Business* --> Marine
+    [ /] Create Event* --> Marine
 
     [ ] Edit Business (Dialog?)*
     [ ] Edit Event (Dialog?)*
