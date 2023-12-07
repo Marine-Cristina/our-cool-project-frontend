@@ -29,6 +29,13 @@ App where different business (shops, restaurants, brands...) will be displayed i
     ---> Brief description like... "Explore businesses, don't forget you can modify the filters to find just what you need".
     ---> Filters bar (by location or type of friendly).
     ---> List of all businesses on the left (card format with fav button, only active for users, if someone clicks and it isn't logged in, the log in form appears).
+    ---> Card of each business inside the list, displaying:
+        {
+            name,
+            location,
+            typeOfBusiness in images format
+        }
+
     ---> Google maps on the right.
     ---> Footer as before.
 
@@ -38,6 +45,14 @@ App where different business (shops, restaurants, brands...) will be displayed i
     ---> Brief description like... "Explore events, don't forget you can modify the filters to find just what you need".
     ---> Filters bar (by location or type of friendly).
     ---> List of all events on the left (card format with fav button, only active for users, if someone clicks and it isn't logged in, the log in form appears).
+    ---> Card of each event inside the list, displaying:
+        {
+            nameOfTheEvent,
+            location,
+            date,
+            organizer,
+            typeOfBusiness in images format
+        }
     ---> Google maps on the right.
     ---> Footer as before.
 
@@ -100,7 +115,7 @@ App where different business (shops, restaurants, brands...) will be displayed i
 
 [ ] GeoJSON.
 
-[ ] Loader.jsx
+[ ] Loader.jsx / Skeleton --> Cris
 
 [ ] Title.jsx with title and icon.
 
