@@ -138,9 +138,9 @@ App where different business (shops, restaurants, brands...) will be displayed i
 
 [ ] Use library Ant Design.
 
-[ ] Loader.jsx / Skeleton --> Cris
+[ ] Loader.jsx / Skeleton. --> Cris
 
-[ ] Title.jsx with title and icon.
+[ ] Title.jsx with title and icon. --> Cris
 
 [ ] Do we need a Context Hook?
 
