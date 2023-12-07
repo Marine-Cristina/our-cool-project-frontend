@@ -68,7 +68,13 @@ App where different business (shops, restaurants, brands...) will be displayed i
     ---> Navbar as before.
     ---> Logo somewhere.
     ---> Back button.
-    ---> Big card with all the details of the business and its location in google maps.
+    ---> Big card with all the details of the business and its location in google maps:
+        {
+            name,
+            location,
+            typeOfBusiness in images format,
+            contact
+        }
     ---> Edit and delete buttons (only active for owners).
     ---> Footer as before.
 
@@ -76,19 +82,34 @@ App where different business (shops, restaurants, brands...) will be displayed i
     ---> Navbar as before.
     ---> Logo somewhere.
     ---> Back button.
-    ---> Big card with all the details of the event and its location in google maps.
+    ---> Big card with all the details of the event and its location in google maps:
+        {
+            nameOfTheEvent,
+            location,
+            date,
+            organizer,
+            price,
+            typeOfBusiness in images format,
+            contact
+        }
     ---> Edit and delete buttons (only active for organizers).
     ---> Footer as before.
 
 // COMPONENTS:
 
+    [X] AllBusinesses
+    [X] AllEvents
+
+    [ ] DetailsOfBusiness --> Cris
+    [ ] DetailsOfEvent --> Cris
+
     ** FOR CREATE AND EDIT COMPONENTS DESIGN WOULD BE NICE TO HAVE THE CREATE/EDIT FORM ON A SIDE, AND THE CARD ON THE OTHER, SO YOU CAN SEE HOW THE CARD WILL LOOK AT THE SAME TIME YOU WRITE. (Render form on one side and Card in the other with real time changes appearing).
 
-    [ ] Create Business*
-    [ ] Create Event*
+    [ ] Create Business* --> Marine
+    [ ] Create Event* --> Marine
 
-    [ ] Edit Business (Dialog MUI?)*
-    [ ] Edit Event (Dialog MUI?)*
+    [ ] Edit Business (Dialog?)*
+    [ ] Edit Event (Dialog?)*
 
     [ ] Delete Business (and go back to all business page).
     [ ] Delete Event (ang go back to all events page).
@@ -114,6 +135,8 @@ App where different business (shops, restaurants, brands...) will be displayed i
 [ ] Enable the user to upload an image (Cloudinary).
 
 [ ] GeoJSON.
+
+[ ] Use library Ant Design.
 
 [ ] Loader.jsx / Skeleton --> Cris
 
