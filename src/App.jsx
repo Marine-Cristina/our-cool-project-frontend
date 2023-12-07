@@ -5,6 +5,9 @@ import { Route, Routes } from 'react-router-dom'
 import DetailsBusinessPage from './pages/DetailsBusinessPage'
 import CreateBusiness from './components/CreateBusiness'
 import CreateEvents from './components/CreateEvents'
+import DetailsEventsPage from './pages/DetailsEventsPage'
+
+
 function App() {
   console.log('hello app')
   return (
@@ -13,6 +16,7 @@ function App() {
       <Route path = "/businesses" element = {<CreateBusiness/>}></Route>
       <Route path="/events" element={<CreateEvents/>}></Route>
       <Route path="/detailsbusiness" element={<DetailsBusinessPage/>}></Route>
+      <Route path="/detailevents" element={<DetailsEventsPage/>}></Route>
        </Routes>
   )
 }
