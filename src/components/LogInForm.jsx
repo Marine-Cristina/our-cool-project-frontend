@@ -14,12 +14,9 @@ import {
     ProFormText,
   } from '@ant-design/pro-components';
   import { Button, Divider, Space, Tabs, message, theme } from 'antd';
-  import type { CSSProperties } from 'react';
   import { useState } from 'react';
   
-  type LoginType = 'phone' | 'account';
-  
-  const iconStyles: CSSProperties = {
+  const iconStyles = {
     color: 'rgba(0, 0, 0, 0.2)',
     fontSize: '18px',
     verticalAlign: 'middle',
@@ -27,7 +24,7 @@ import {
   };
   
   const Page = () => {
-    const [loginType, setLoginType] = useState<LoginType>('phone');
+    const [loginType, setLoginType] = useState('phone');
     const { token } = theme.useToken();
     return (
       <div
@@ -140,7 +137,7 @@ import {
           <Tabs
             centered
             activeKey={loginType}
-            onChange={(activeKey) => setLoginType(activeKey as LoginType)}
+            onChange={(activeKey) => setLoginType(activeKey)}
           >
             <Tabs.TabPane key={'account'} tab={'User录'} />
             <Tabs.TabPane key={'phone'} tab={'Owner'} />

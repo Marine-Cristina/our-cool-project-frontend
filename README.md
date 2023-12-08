@@ -114,7 +114,7 @@ App where different business (shops, restaurants, brands...) will be displayed i
     [/] Delete Business (and go back to all business page) --> Marine 
     [/] Delete Event (ang go back to all events page) --> Marine
 
-    [ ] Log In component with sign up button in case the user is not registered yet.
+    [/] Log In component with sign up button in case the user is not registered yet : ant library. 
 
     [ ] Business card.
     [ ] Event card.
