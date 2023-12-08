@@ -1,189 +1,150 @@
-import { useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { getUserIdFromAuth } from "../utils/authUtils";
+import {
+  Button,
+  Form,
+  Input,
+  Select,
+  Switch,
+  // Upload,
+  Flex,
+} from "antd";
+
+const { TextArea } = Input;
 
 function CreateBusiness() {
   const navigate = useNavigate();
-  const { user_id } = useParams();
+  const [userId, setUserId] = useState();
 
-  const [userData, setUserData] = useState({
-    name: "",
-    location: "",
-    coordinates: {latitude:"", longitude:""},
-    typeOfBusiness: "",
-    owner: { user_id },
-    isPetFriendly: "",
-    isChildFriendly: "",
-    isEcoFriendly: "",
-    isAccessibilityFriendly: "",
-    isVeganFriendly: "",
-    contacts: "",
-  });
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const userId = await getUserIdFromAuth();
+        debugger;
+        setUserId(userId);
+      } catch (error) {
+        console.error("Error fetching user ID:", error);
+      }
+    };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "latitude" || name === "longitude") {
-      setUserData({
-        ...userData,
-        coordinates: {
-          ...userData.coordinates,
-          [name]: value,
-        },
-      });
-    } else {
-      setUserData({
-        ...userData,
-        [name]: value,
-      });
-    }
-  };
+    fetchUserId();
+  }, []);
 
-  const handleSubmit = (e) => {
-    const { name, value } = e.target;
-    e.preventDefault();
-    console.log(userData);
+  const handleSubmit = (formValues) => {
+    const businessPayload = { ...formValues, owner: userId };
 
     axios
-      .post("http://localhost:5005/business", userData)
+      .post("http://localhost:5005/businesses", businessPayload)
       .then((response) => {
-        setUserData({
-          name: "",
-          location: "",
-          coordinates: "",
-          typeOfBusiness: "",
-          user: { business_id },
-          isPetFriendly: "",
-          isChildFriendly: "",
-          isEcoFriendly: "",
-          isAccessibilityFriendly: "",
-          isVeganFriendly: "",
-          contacts: "",
-        });
+        navigate(`/businesses/${response.data._id}`);
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <h2> Create a business</h2>
-          <input
-            htmlFor="nameOfBusiness"
-            type="text"
-            id="nameOfBusiness"
-            value={userData.name}
-            onChange={handleInputChange}
+    <>
+      <h1>TELL US ABOUT YOUR BUSINESS</h1>
+      <Form
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 14 }}
+        layout="vertical"
+        style={{ maxWidth: 600 }}
+        initialValues={{
+          name: "",
+          location: "",
+          coordinates: [],
+          typeOfBusiness: "",
+          description: "",
+          isPetFriendly: false,
+          isChildFriendly: false,
+          isEcoFriendly: false,
+          isAccessibilityFriendly: false,
+          isVeganFriendly: false,
+          contact: "",
+        }}
+        onFinish={handleSubmit}
+      >
+        <Form.Item label="Name" name="name">
+          <Input placeholder="What's the name of your business?" />
+        </Form.Item>
+
+        <Form.Item label="Location" name="location">
+          <Select>
+            <Select.Option value="Burgos">Burgos, Spain</Select.Option>
+            <Select.Option value="Paris">Paris, France</Select.Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item label="Type of business" name="typeOfBusiness">
+          <Select>
+            <Select.Option value="Hotel">Hotel</Select.Option>
+            <Select.Option value="Restaurant">Restaurant</Select.Option>
+            <Select.Option value="Coffee Shop">Coffee Shop</Select.Option>
+            <Select.Option value="Store">Store</Select.Option>
+            <Select.Option value="Museum">Museum</Select.Option>
+            <Select.Option value="Theatre">Theatre</Select.Option>
+            <Select.Option value="Supermarket">Supermarket</Select.Option>
+            <Select.Option value="Transport">Transport</Select.Option>
+            <Select.Option value="Workplace">Workplace</Select.Option>
+            <Select.Option value="Other">Other</Select.Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item label="Description" name="description">
+          <TextArea rows={6} placeholder="Tell us about your business." />
+        </Form.Item>
+
+        <Flex justify="space-between" align="start">
+          <Form.Item
+            label="Pet-friendly"
+            name="isPetFriendly"
+            valuePropName="checked"
           >
-            Name of the Business
-          </input>
-      </div>
-      <div>
-        <label htmlFor="location">Location</label>
-        <select
-          id="location"
-          value={userData.location}
-          onChange={handleInputChange}
-        >
-          <option value="Paris">Paris</option>
-          <option value="Burgos">Burgos</option>
-        </select>
-      </div>
-      <div>
-          <input
-            type="text"
-            id="latitude"
-            value={userData.coordinates}
-            onChange={handleInputChange} >Where is it ?</input>
-                <input 
-                type="text"
-                id="longitude"
-                name="longitude"
-                value={userData.coordinates.longitude}
-                onChange={handleInputChange}>
-                </input>
-            </div>
-      <div>
-        <label htmlFor="typeOfBusiness"> what it is ?</label>
-        <select
-          id="typeOfBusiness"
-          value={userData.typeOfBusiness}
-          onChange={handleInputChange}
-        >
-          <option value="hotel">otel</option>
-          <option value="restaurant">Restaurant</option>
-          <option value="coffee shop">Coffee Shop</option>
-          <option value="store">Store</option>
-          <option value="musuem">Musuem</option>
-          <option value="brand">Brand</option>
-          <option value="supermarket">Supermarket</option>
-          <option value="transport">Transport</option>
-          <option value="workplace">Workplace</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div>
-        <label htmlFor="isPetFriendly">
-          <select
-            id="isPetFriendly"
-            value={userData.isPetFriendly}
-            onChange={handleInputChange}
+            <Switch />
+          </Form.Item>
+          <Form.Item
+            label="Child-friendly"
+            name="isChildFriendly"
+            valuePropName="checked"
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-        </label>
-        <label htmlFor="isChildFriendly">
-          <select
-            id="isChildFriendly"
-            value={userData.isChildFriendly}
-            onChange={handleInputChange}
+            <Switch />
+          </Form.Item>
+          <Form.Item
+            label="Eco-friendly"
+            name="isEcoFriendly"
+            valuePropName="checked"
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-        </label>
-        <label htmlFor="isEcoFriendly">
-          <select
-            id="isEcoFriendly"
-            value={userData.isEcoFriendly}
-            onChange={handleInputChange}
+            <Switch />
+          </Form.Item>
+          <Form.Item
+            label="Accessibility-friendly"
+            name="isAccessibilityFriendly"
+            valuePropName="checked"
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-        </label>
-        <label htmlFor="isAccessibilityFriendly">
-          <select
-            id="isAccessibilityFriendly"
-            value={userData.isAccessibilityFriendly}
-            onChange={handleInputChange}
+            <Switch />
+          </Form.Item>
+          <Form.Item
+            label="Vegan-friendly"
+            name="isVeganFriendly"
+            valuePropName="checked"
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-        </label>
-        <label htmlFor="isVeganFriendly">
-          <select
-            id="isVeganFriendly"
-            value={userData.isVeganFriendly}
-            onChange={handleInputChange}
-          >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-        </label>
-      </div>
-      <div>
-        <label htmlFor="contacts"> Contact</label>
-        <select
-          type="text"
-          id="contacts"
-          value={userData.contacts}
-          onChange={handleInputChange}
-        />
-      </div>
-    </form>
+            <Switch />
+          </Form.Item>
+        </Flex>
+
+        <Form.Item label="Contact info" name="contact">
+          <Input placeholder="example@example.com or +34 655 43 52 67" />
+        </Form.Item>
+
+        <Form.Item>
+          <Button htmlType="Submit">Publish Business</Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 }
 

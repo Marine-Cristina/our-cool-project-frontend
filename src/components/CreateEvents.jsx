@@ -1,57 +1,46 @@
-import { useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { getUserIdFromAuth } from "../utils/authUtils";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Select,
+  Switch,
+  // Upload,
+  Flex,
+} from "antd";
 
-function CreateEvents() {
+const { RangePicker } = DatePicker;
+const { TextArea } = Input;
+
+const CreateEvent = () => {
   const navigate = useNavigate();
-  const { business_id } = useParams();
-  const [userData, setUserData] = useState({
-    nameOfTheEvent: "",
-    location: "",
-    coordinates: [0, 0],
-    date: "",
-    organizer: "",
-    user: { business_id },
-    price: "",
-    isPetFriendly: "",
-    isChildFriendly: "",
-    isEcoFriendly: "",
-    isAccessibilityFriendly: "",
-    isVeganFriendly: "",
-    contacts: "",
-  });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
-  };
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const userId = await getUserIdFromAuth();
+        debugger;
+        setUserId(userId);
+      } catch (error) {
+        console.error("Error fetching user ID:", error);
+      }
+    };
 
-  const handleSubmit = (e) => {
-    const { name, value } = e.target;
-    e.preventDefault();
-    console.log(userData);
+    fetchUserId();
+  }, []);
+
+  const handleSubmit = (formValues) => {
+    const eventPayload = { ...formValues, organizer: userId };
 
     axios
-      .post("http://localhost:5005/events", userData)
-      .then(() => {
-        setUserData({
-          nameOfTheEvent: "",
-          location: "",
-          coordinates: [0, 0],
-          date: "",
-          organizer: "",
-          user: { business_id },
-          price: "",
-          isPetFriendly: "",
-          isChildFriendly: "",
-          isEcoFriendly: "",
-          isAccessibilityFriendly: "",
-          isVeganFriendly: "",
-          contacts: "",
-        });
+      .post("http://localhost:5005/events", eventPayload)
+      .then((response) => {
+        navigate(`/events/${response.data._id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -59,132 +48,104 @@ function CreateEvents() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <h2> Create a event </h2>
-        <label htmlFor="nameOfEvent"> Name of the Event</label>
-        <input
-          type="text"
-          id="nameOfEvent"
-          value={userData.name}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="location">Location</label>
-        <label
-        type ="text"
-          id="location"
-          value={userData.location}
-          onChange={handleInputChange}
-        >
-          <option value="Paris">Paris</option>
-          <option value="Burgos">Burgos</option>
-        </label>
-      </div>
-      <div>
-        <label htmlFor="coordinates"> Where is it ?</label>
-        <select
-          type="text"
-          id="locationOfEvent"
-          value={userData.coordinates}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="date">Date</label>
-        <input
-          type="date"
-          id="date"
-          value={userData.date}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="organizer">
-          Organizer
-          <input
-            type="text"
-            id="organizer"
-            value={userData.organizer}
-            onChange={handleInputChange}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="price">
-          Price
-          <input
-            type="number"
-            id="price"
-            value={userData.price}
-            onChange={handleInputChange}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="isPetFriendly"> Is Pet Friendly
-          <select
-            id="isPetFriendly"
-            value={userData.isPetFriendly}
-            onChange={handleInputChange}
+    <>
+      <h1>TELL US ABOUT YOUR EVENT</h1>
+      <Form
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 14 }}
+        layout="vertical"
+        style={{ maxWidth: 600 }}
+        initialValues={{
+          nameOfTheEvent: "",
+          location: "",
+          coordinates: [],
+          date: "",
+          price: 0,
+          description: "",
+          isPetFriendly: false,
+          isChildFriendly: false,
+          isEcoFriendly: false,
+          isAccessibilityFriendly: false,
+          isVeganFriendly: false,
+          contact: "",
+        }}
+        onFinish={handleSubmit}
+      >
+        <Form.Item label="Name" name="nameOfTheEvent">
+          <Input placeholder="What's the name of your event?" />
+        </Form.Item>
+        <Form.Item label="Organizer" name="organizer">
+          <Input value="Change this for business.name" disabled />
+        </Form.Item>
+        <Form.Item label="Location" name="location">
+          <Select>
+            <Select.Option value="Burgos">Burgos, Spain</Select.Option>
+            <Select.Option value="Paris">Paris, France</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label="Date" name="date">
+          <RangePicker />
+        </Form.Item>
+        <Form.Item label="Price" name="price">
+          <InputNumber type="number" min={0} suffix="€" />
+        </Form.Item>
+        <Form.Item label="Description" name="description">
+          <TextArea rows={6} placeholder="Tell us about your event." />
+        </Form.Item>
+        <Flex justify="space-between" align="start">
+          <Form.Item
+            label="Pet-friendly"
+            valuePropName="checked"
+            name="isPetFriendly"
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-        </label>
-        <label htmlFor="isChildFriendly"> Is Child Friendly
-          <select
-            id="isChildFriendly"
-            value={userData.isChildFriendly}
-            onChange={handleInputChange}
+            <Switch />
+          </Form.Item>
+          <Form.Item
+            label="Child-friendly"
+            valuePropName="checked"
+            name="isChildFriendly"
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-        </label>
-        <label htmlFor="isEcoFriendly"> Is Eco Friendly 
-          <select
-            id="isEcoFriendly"
-            value={userData.isEcoFriendly}
-            onChange={handleInputChange}
+            <Switch />
+          </Form.Item>
+          <Form.Item
+            label="Eco-friendly"
+            valuePropName="checked"
+            name="isEcoFriendly"
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-        </label>
-        <label htmlFor="isAccessibilityFriendly"> Is Accessibility Friendly 
-          <select
-            id="isAccessibilityFriendly"
-            value={userData.isAccessibilityFriendly}
-            onChange={handleInputChange}
+            <Switch />
+          </Form.Item>
+          <Form.Item
+            label="Accessibility-friendly"
+            valuePropName="checked"
+            name="isAccessibilityFriendly"
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-        </label>
-        <label htmlFor="isVeganFriendly"> Is Vegan Friendly 
-          <select
-            id="isVeganFriendly"
-            value={userData.isVeganFriendly}
-            onChange={handleInputChange}
+            <Switch />
+          </Form.Item>
+          <Form.Item
+            label="Vegan-friendly"
+            valuePropName="checked"
+            name="isVeganFriendly"
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-        </label>
-      </div>
-      <div>
-        <label htmlFor="contacts"> Contact</label>
-        <input 
-          type="text"
-          id="contacts"
-          value={userData.contacts}
-          onChange={handleInputChange}
-        />
-      </div>
-    </form>
+            <Switch />
+          </Form.Item>
+        </Flex>
+        <Form.Item label="Contact info" name="contact">
+          <Input />
+        </Form.Item>
+        {/* <Form.Item label="Upload" valuePropName="fileList" getValueFromEvent={normFile}>
+          <Upload action="/upload.do" listType="picture-card">
+            <div>
+              <PlusOutlined />
+              <div style={{ marginTop: 8 }}>Upload</div>
+            </div>
+          </Upload>
+        </Form.Item> */}
+        <Form.Item>
+          <Button onClick={() => navigate("/events")}>Publish Event</Button>
+        </Form.Item>
+      </Form>
+    </>
   );
-}
+};
 
-export default CreateEvents;
+export default CreateEvent;

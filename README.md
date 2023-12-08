@@ -147,3 +147,8 @@ App where different business (shops, restaurants, brands...) will be displayed i
 [ ] Real time chat???
 
 [ ] typeOfUser: ["owner", "user"].
+
+# Implementing Ant Design Library:
+
+Form:
+npm install antd @ant-design/icons react react-dom @types/react @types/react-dom
