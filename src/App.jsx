@@ -6,6 +6,7 @@ import DetailsBusinessPage from './pages/DetailsBusinessPage'
 import CreateBusiness from './components/CreateBusiness'
 import CreateEvents from './components/CreateEvents'
 import DetailsEventsPage from './pages/DetailsEventsPage'
+import DeleteBusiness from './components/DeleteBusiness'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/events" element={<CreateEvents/>}></Route>
       <Route path="/detailsbusiness" element={<DetailsBusinessPage/>}></Route>
       <Route path="/detailevents" element={<DetailsEventsPage/>}></Route>
+      <Route path="/deletebusiness" element={<DeleteBusiness/>}></Route>
        </Routes>
   )
 }

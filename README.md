@@ -111,8 +111,8 @@ App where different business (shops, restaurants, brands...) will be displayed i
     [ ] Edit Business (Dialog?)*
     [ ] Edit Event (Dialog?)*
 
-    [ ] Delete Business (and go back to all business page).
-    [ ] Delete Event (ang go back to all events page).
+    [ ] Delete Business (and go back to all business page) --> Marine 
+    [ ] Delete Event (ang go back to all events page) --> Marine
 
     [ ] Log In component with sign up button in case the user is not registered yet.
 
