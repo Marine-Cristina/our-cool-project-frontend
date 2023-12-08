@@ -10,7 +10,7 @@ function DeleteBusiness({ownerId}){
 
     const handleDeleteBusiness = () => {
         axios
-        .delete(`http://localhost:5173/businesses/${ownerId}`) 
+        .delete(`http://localhost:5005/businesses/${ownerId}`) 
        .then (()=>{
        console.log("Business deleted successfully")
        setDeleteBusiness(true)

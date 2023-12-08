@@ -100,19 +100,19 @@ App where different business (shops, restaurants, brands...) will be displayed i
     [X] AllBusinesses
     [X] AllEvents
 
-    [ ] DetailsOfBusiness --> Marine
-    [ ] DetailsOfEvent --> Cris
+    [/] DetailsOfBusiness --> Marine
+    [/] DetailsOfEvent --> Cris
 
     ** FOR CREATE AND EDIT COMPONENTS DESIGN WOULD BE NICE TO HAVE THE CREATE/EDIT FORM ON A SIDE, AND THE CARD ON THE OTHER, SO YOU CAN SEE HOW THE CARD WILL LOOK AT THE SAME TIME YOU WRITE. (Render form on one side and Card in the other with real time changes appearing).
 
-    [ /] Create Business* --> Marine
-    [ /] Create Event* --> Marine
+    [/] Create Business* --> Marine
+    [/] Create Event* --> Marine
 
     [ ] Edit Business (Dialog?)*
     [ ] Edit Event (Dialog?)*
 
-    [ ] Delete Business (and go back to all business page) --> Marine 
-    [ ] Delete Event (ang go back to all events page) --> Marine
+    [/] Delete Business (and go back to all business page) --> Marine 
+    [/] Delete Event (ang go back to all events page) --> Marine
 
     [ ] Log In component with sign up button in case the user is not registered yet.
 

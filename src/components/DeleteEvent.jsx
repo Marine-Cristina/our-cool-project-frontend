@@ -11,7 +11,7 @@ function DeleteEvent({ownerId}){
     useEffect(()=>{
         if (deleteEvent) {
             axios
-            .delete(`http://localhost:5173/events/${ownerId}`) 
+            .delete(`http://localhost:5005/events/${ownerId}`) 
            .then (()=>{
            console.log("event delete successfully")
            navigate(`/`)
