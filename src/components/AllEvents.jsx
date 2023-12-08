@@ -1,17 +1,21 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import accessibility from "/accessibility.png";
+import child from "/child.png";
+import eco from "/eco.png";
+import pet from "/pet.avif";
+import vegan from "/vegan.png";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "http://localhost:5005/";
+const EVENTS_URL = `${API_URL}events/`;
 
-function AllEvent() {
-  const [event, setEvent] = useState([]);
-  console.log('hello events')
+function AllEvents() {
+  const [events, setEvents] = useState([]);
 
   const getAllEvents = () => {
     axios
-      .get(`${API_URL}/events`)
-      .then((response) => setEvent(response.data))
+      .get(EVENTS_URL)
+      .then((response) => setEvents(response.data))
       .catch((error) => console.log(error));
   };
 
@@ -21,20 +25,19 @@ function AllEvent() {
 
   return (
     <div>
-      {event && event.map((event, i) => {
+      {events && events.map((event, i) => {
         return (
           <div key={i}>
-            <Link to={`/events/${event._id}`}> {event._id}</Link>
             <h2>{event.nameOfTheEvent}</h2>
             <h2>{event.location}</h2>
             <h2>{event.date}</h2>
             <h2>{event.organizer}</h2>
             <h2>{event.price}</h2>
-            <h2>{event.isPetFriendly && <img src="pet_app.avif" alt="Pet Friendly" />}</h2>
-            <h2>{event.isChildFriendly && <img src="baby_app.png" alt = "Kid Friendly"/>}</h2>
-            <h2>{event.isEcoFriendly && <img src = "ecofriendly_app" alt="Eco Friendly"/>}</h2>
-            <h2>{event.isAccessibilityFriendly && <img src="handicap_app" alt="Accessibility Friendly"/>}</h2>
-            <h2>{event.isVeganFriendly && <img src="vegan_app" alt="Vegan Friendly"/>}</h2>
+            <h2>{event.isPetFriendly && <img src={pet} alt="Pet Friendly" />}</h2>
+            <h2>{event.isChildFriendly && <img src={child} alt = "Kid Friendly"/>}</h2>
+            <h2>{event.isEcoFriendly && <img src={eco} alt="Eco Friendly"/>}</h2>
+            <h2>{event.isAccessibilityFriendly && <img src={accessibility} alt="Accessibility Friendly"/>}</h2>
+            <h2>{event.isVeganFriendly && <img src={vegan} alt="Vegan Friendly"/>}</h2>
           </div>
         );
       })}
@@ -42,4 +45,4 @@ function AllEvent() {
   );
 }
 
-export default AllEvent;
+export default AllEvents;
