@@ -1,6 +1,6 @@
 const { createRoot } = ReactDOM;
 
-const {  Breadcrumb, Layout, Menu, theme  } = antd;
+const { Breadcrumb, Layout, Menu, theme } = antd;
 const { Header, Content, Footer } = Layout;
 const App = () => {
   const {
@@ -10,19 +10,19 @@ const App = () => {
     <Layout>
       <Header
         style={{
-          position: 'sticky',
+          position: "sticky",
           top: 0,
           zIndex: 1,
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
         }}
       >
         <div className="demo-logo" />
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={['2']}
+          defaultSelectedKeys={["2"]}
           items={new Array(3).fill(null).map((_, index) => ({
             key: String(index + 1),
             label: `nav ${index + 1}`,
@@ -32,17 +32,24 @@ const App = () => {
       <Content
         className="site-layout"
         style={{
-          padding: '0 50px',
+          padding: "0 50px",
         }}
       >
         <Breadcrumb
           style={{
-            margin: '16px 0',
+            margin: "16px 0",
           }}
         >
-          <Breadcrumb.Item Link to="/">Home</Breadcrumb.Item>
-          <Breadcrumb.Item Link to="/businesses"> Create Business</Breadcrumb.Item>
-          <Breadcrumb.Item Link to = "/events">Create an Event</Breadcrumb.Item>
+          <Breadcrumb.Item Link to="/">
+            Home
+          </Breadcrumb.Item>
+          <Breadcrumb.Item Link to="/businesses">
+            {" "}
+            Create Business
+          </Breadcrumb.Item>
+          <Breadcrumb.Item Link to="/events">
+            Create an Event
+          </Breadcrumb.Item>
         </Breadcrumb>
         <div
           style={{
@@ -56,7 +63,7 @@ const App = () => {
       </Content>
       <Footer
         style={{
-          textAlign: 'center',
+          textAlign: "center",
         }}
       >
         Ant Design ©2023 Created by Ant UED
@@ -65,6 +72,5 @@ const App = () => {
   );
 };
 const ComponentDemo = App;
-
 
 createRoot(mountNode).render(<ComponentDemo />);

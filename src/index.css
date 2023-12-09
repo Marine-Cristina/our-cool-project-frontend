@@ -1,0 +1,19 @@
+#root {
+  height: 100vh;
+  display: flex;
+  flex: 1;
+  background-color: #eff0ec;
+  color: #153244;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
