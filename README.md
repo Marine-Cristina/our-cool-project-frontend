@@ -111,10 +111,10 @@ App where different business (shops, restaurants, brands...) will be displayed i
     [ ] Edit Business (Dialog?)*
     [ ] Edit Event (Dialog?)*
 
-    [/] Delete Business (and go back to all business page) --> Marine 
+    [/] Delete Business (and go back to all business page) --> Marine
     [/] Delete Event (ang go back to all events page) --> Marine
 
-    [/] Log In component with sign up button in case the user is not registered yet : ant library. 
+    [/] Log In component with sign up button in case the user is not registered yet : ant library.
 
     [ ] Business card.
     [ ] Event card.
@@ -152,3 +152,6 @@ App where different business (shops, restaurants, brands...) will be displayed i
 
 Form:
 npm install antd @ant-design/icons react react-dom @types/react @types/react-dom
+
+Title:
+npm install react-helmet

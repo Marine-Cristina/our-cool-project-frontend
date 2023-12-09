@@ -9,17 +9,12 @@ import DetailsEventsPage from "./pages/DetailsEventsPage";
 import DeleteBusiness from "./components/DeleteBusiness";
 import FilterBusiness from "./components/FilterBusinesses";
 import FilterEvent from "./components/FilterEvents";
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
-import HomePage from "./pages/HomePage";
-import DetailsBusinessPage from "./pages/DetailsBusinessPage";
-import DetailsEventsPage from "./pages/DetailsEventsPage";
-import CreateBusiness from "./components/CreateBusiness";
-import CreateEvents from "./components/CreateEvents";
+import Title from "./components/Title";
 
 function App() {
   return (
     <>
+      <Title />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/businesses" element={<CreateBusiness />} />
