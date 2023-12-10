@@ -5,7 +5,7 @@ import { Alert, Button, Checkbox, Form, Input, Flex } from "antd";
 import { API_URL } from "../core/constants";
 import { useStore } from "../context/Store";
 
-const Login = () => {
+const Login = ({ onCancel }) => {
   const [error, setError] = useState(false);
   const { updateAuthToken } = useStore();
 
@@ -18,6 +18,7 @@ const Login = () => {
       .then((response) => {
         updateAuthToken(response.data.authToken);
         setError(false);
+        onCancel();
       })
       .catch((error) => {
         setError(true);
@@ -75,14 +76,14 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="login-form-button"
-          >
-            Log in
-          </Button>
-          Or <a href="">register now!</a>
+          <Flex gap="small" justify="flex-end">
+            <Button type="primary" htmlType="submit">
+              Login
+            </Button>
+            <Button type="primary" ghost htmlType="cancel" onClick={onCancel}>
+              Cancel
+            </Button>
+          </Flex>
         </Form.Item>
       </Form>
     </Flex>

@@ -7,8 +7,6 @@ export const APP_ROUTES = {
   EVENT_BY_ID: "/events/:eventId",
   NEW_EVENT: "/events/new",
   ABOUT: "/about",
-  SIGN_UP: "/signup",
-  LOGIN: "/login",
 };
 
 export const API_URL = "http://localhost:5005";

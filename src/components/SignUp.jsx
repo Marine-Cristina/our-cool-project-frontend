@@ -5,7 +5,7 @@ import { Alert, Button, Checkbox, Form, Input, Flex } from "antd";
 import { API_URL } from "../core/constants";
 import { useStore } from "../context/Store";
 
-const SignUp = () => {
+const SignUp = ({ onCancel }) => {
   const [error, setError] = useState();
   const { updateAuthToken } = useStore();
 
@@ -19,6 +19,7 @@ const SignUp = () => {
       .then((response) => {
         updateAuthToken(response.data.authToken);
         setError(false);
+        onCancel();
       })
       .catch((error) => {
         setError(error.response.data.message);
@@ -82,9 +83,14 @@ const SignUp = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Sign up
-          </Button>
+          <Flex gap="small" justify="flex-end">
+            <Button type="primary" htmlType="submit">
+              Sign up
+            </Button>
+            <Button type="primary" ghost htmlType="cancel" onClick={onCancel}>
+              Cancel
+            </Button>
+          </Flex>
         </Form.Item>
       </Form>
     </Flex>

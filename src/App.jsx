@@ -13,9 +13,7 @@ import FilterEvent from "./components/FilterEvents";
 import Title from "./components/Title";
 import Layout from "./components/Layout";
 import { APP_ROUTES } from "./core/constants";
-import LoginPage from "./pages/LoginPage";
 import Store from "./context/Store";
-import SignUpPage from "./pages/SignUpPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -26,9 +24,6 @@ function App() {
         <Layout>
           <Routes>
             <Route path={APP_ROUTES.ROOT} element={<HomePage />} />
-
-            <Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
-            <Route path={APP_ROUTES.SIGN_UP} element={<SignUpPage />} />
 
             <Route path={APP_ROUTES.BUSINESSES} element={<AllBusinesses />} />
             <Route path={APP_ROUTES.EVENTS} element={<AllEvents />} />
