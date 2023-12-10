@@ -5,14 +5,19 @@ export const StoreContext = createContext({ authToken: "" });
 function Store({ children }) {
   const [authToken, setAuthToken] = useState("");
 
-  const handleUpdateAuthToken = (updatedToken) => {
+  const updateAuthToken = (updatedToken) => {
     setAuthToken(updatedToken);
   };
 
+  const removeAuthToken = () => {
+    setAuthToken("");
+  };
+
   const values = {
-    authToken: authToken,
-    updateAuthToken: handleUpdateAuthToken,
+    authToken,
+    updateAuthToken,
     isAuthenticated: authToken !== "",
+    removeAuthToken,
   };
 
   return (

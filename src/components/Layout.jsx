@@ -9,6 +9,7 @@ import {
   BoldOutlined,
   ScheduleOutlined,
   PlusCircleOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import {
   Layout as AntLayout,
@@ -28,7 +29,7 @@ const { Header, Sider, Content, Footer } = AntLayout;
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useStore();
+  const { isAuthenticated, removeAuthToken } = useStore();
 
   const [collapsed, setCollapsed] = useState(false);
   const {
@@ -72,6 +73,8 @@ const Layout = ({ children }) => {
               navigate(APP_ROUTES.NEW_EVENT);
             } else if (key === "login-link") {
               navigate(APP_ROUTES.LOGIN);
+            } else if (key === "logout-link") {
+              removeAuthToken();
             }
           }}
           items={[
@@ -108,6 +111,11 @@ const Layout = ({ children }) => {
               key: "login-link",
               icon: <UserOutlined />,
               label: "Login",
+            },
+            {
+              key: "logout-link",
+              icon: <LogoutOutlined />,
+              label: "Logout",
             },
           ]}
         />
