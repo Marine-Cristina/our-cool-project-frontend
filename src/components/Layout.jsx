@@ -22,11 +22,14 @@ import {
 import Logo from "/logo.png";
 import { useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../core/constants";
+import { useStore } from "../context/Store";
 
 const { Header, Sider, Content, Footer } = AntLayout;
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useStore();
+
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -87,16 +90,20 @@ const Layout = ({ children }) => {
               icon: <ScheduleOutlined />,
               label: "Events",
             },
-            {
-              key: "create-business-link",
-              icon: <PlusCircleOutlined />,
-              label: "New Business",
-            },
-            {
-              key: "create-event-link",
-              icon: <PlusCircleOutlined />,
-              label: "New Event",
-            },
+            isAuthenticated === true
+              ? {
+                  key: "create-business-link",
+                  icon: <PlusCircleOutlined />,
+                  label: "New Business",
+                }
+              : undefined,
+            isAuthenticated === true
+              ? {
+                  key: "create-event-link",
+                  icon: <PlusCircleOutlined />,
+                  label: "New Event",
+                }
+              : undefined,
             {
               key: "login-link",
               icon: <UserOutlined />,
