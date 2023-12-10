@@ -1,22 +1,29 @@
-import Header from "/header.png";
-import { NavLink } from "react-router-dom";
+import React from "react";
 import { Select } from "antd";
+import { useNavigate } from "react-router-dom";
 
-const Option = Select.Option;
+import Header from "/header.png";
 
-function handleChange(value) {
-  console.log(`selected ${value}`);
-}
-
-function handleBlur() {
-  console.log("blur");
-}
-
-function handleFocus() {
-  console.log("focus");
-}
+const { Option } = Select;
 
 function HomePage() {
+  const navigate = useNavigate();
+
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+    if (value === "Paris") {
+      navigate("/businesses/paris");
+    }
+  }
+
+  function handleBlur() {
+    console.log("blur");
+  }
+
+  function handleFocus() {
+    console.log("focus");
+  }
+
   return (
     <>
       <img src={Header} alt="Colorful sphere" style={{ width: "100%" }} />
