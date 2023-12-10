@@ -24,6 +24,7 @@ import Logo from "/logo.png";
 import { useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../core/constants";
 import { useStore } from "../context/Store";
+import UserMenu from "./UserMenu/UserMenu";
 
 const { Header, Sider, Content, Footer } = AntLayout;
 
@@ -127,16 +128,23 @@ const Layout = ({ children }) => {
             background: colorBgContainer,
           }}
         >
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
-            }}
-          />
+          <Flex
+            align="center"
+            justify="space-between"
+            style={{ marginRight: "20px" }}
+          >
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: "16px",
+                width: 64,
+                height: 64,
+              }}
+            />
+            <UserMenu />
+          </Flex>
         </Header>
         <Content
           style={{
