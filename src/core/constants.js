@@ -10,3 +10,17 @@ export const APP_ROUTES = {
 };
 
 export const API_URL = "http://localhost:5005";
+
+export const typeOfBusinessKeys = [
+  "hotel",
+  "restaurant",
+  "coffee-shop",
+  "store",
+  "museum",
+  "theatre",
+  "brand",
+  "supermarket",
+  "transport",
+  "workplace",
+  "other",
+];

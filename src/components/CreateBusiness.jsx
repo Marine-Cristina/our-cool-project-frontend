@@ -11,18 +11,21 @@ import {
   // Upload,
   Flex,
 } from "antd";
+import { useStore } from "../context/Store";
+import { typeOfBusinessKeys } from "../core/constants";
+import { getTypeOfBusiness } from "../utils/formatters";
 
 const { TextArea } = Input;
 
 function CreateBusiness() {
   const navigate = useNavigate();
   const [userId, setUserId] = useState();
+  const { authToken } = useStore();
 
   useEffect(() => {
     const fetchUserId = async () => {
       try {
         const userId = await getUserIdFromAuth();
-        debugger;
         setUserId(userId);
       } catch (error) {
         console.error("Error fetching user ID:", error);
@@ -36,7 +39,9 @@ function CreateBusiness() {
     const businessPayload = { ...formValues, owner: userId };
 
     axios
-      .post("http://localhost:5005/businesses", businessPayload)
+      .post("http://localhost:5005/businesses", businessPayload, {
+        headers: { authorization: `Bearer ${authToken}` },
+      })
       .then((response) => {
         navigate(`/businesses/${response.data._id}`);
       })
@@ -81,16 +86,13 @@ function CreateBusiness() {
 
         <Form.Item label="Type of business" name="typeOfBusiness">
           <Select>
-            <Select.Option value="Hotel">Hotel</Select.Option>
-            <Select.Option value="Restaurant">Restaurant</Select.Option>
-            <Select.Option value="Coffee Shop">Coffee Shop</Select.Option>
-            <Select.Option value="Store">Store</Select.Option>
-            <Select.Option value="Museum">Museum</Select.Option>
-            <Select.Option value="Theatre">Theatre</Select.Option>
-            <Select.Option value="Supermarket">Supermarket</Select.Option>
-            <Select.Option value="Transport">Transport</Select.Option>
-            <Select.Option value="Workplace">Workplace</Select.Option>
-            <Select.Option value="Other">Other</Select.Option>
+            {typeOfBusinessKeys.map((key) => {
+              return (
+                <Select.Option key={key} value={key}>
+                  {getTypeOfBusiness(key)}
+                </Select.Option>
+              );
+            })}
           </Select>
         </Form.Item>
 

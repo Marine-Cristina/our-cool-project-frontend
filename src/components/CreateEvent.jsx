@@ -24,7 +24,6 @@ const CreateEvent = () => {
     const fetchUserId = async () => {
       try {
         const userId = await getUserIdFromAuth();
-        debugger;
         setUserId(userId);
       } catch (error) {
         console.error("Error fetching user ID:", error);
@@ -38,7 +37,9 @@ const CreateEvent = () => {
     const eventPayload = { ...formValues, organizer: userId };
 
     axios
-      .post("http://localhost:5005/events", eventPayload)
+      .post("http://localhost:5005/events", eventPayload, {
+        headers: { authorization: `Bearer ${authToken}` },
+      })
       .then((response) => {
         navigate(`/events/${response.data._id}`);
       })
