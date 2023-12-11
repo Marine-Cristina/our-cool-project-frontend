@@ -157,8 +157,7 @@ const Layout = ({ children }) => {
             style={{
               margin: "20px 20px 1px",
               padding: 10,
-              minHeight: 280,
-              background: colorBgContainer,
+              overflow: "auto",
             }}
           >
             {children}

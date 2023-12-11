@@ -52,10 +52,8 @@ function CreateBusiness() {
 
   return (
     <>
-      <h1>TELL US ABOUT YOUR BUSINESS</h1>
+      <h2>TELL US ABOUT YOUR BUSINESS</h2>
       <Form
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 14 }}
         layout="vertical"
         style={{ maxWidth: 600 }}
         initialValues={{
@@ -123,15 +121,15 @@ function CreateBusiness() {
             <Switch />
           </Form.Item>
           <Form.Item
-            label="Accessibility-friendly"
-            name="isAccessibilityFriendly"
+            label="Vegan-friendly"
+            name="isVeganFriendly"
             valuePropName="checked"
           >
             <Switch />
           </Form.Item>
           <Form.Item
-            label="Vegan-friendly"
-            name="isVeganFriendly"
+            label="Accessible"
+            name="isAccessibilityFriendly"
             valuePropName="checked"
           >
             <Switch />

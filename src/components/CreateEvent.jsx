@@ -51,10 +51,8 @@ const CreateEvent = () => {
 
   return (
     <>
-      <h1>TELL US ABOUT YOUR EVENT</h1>
+      <h2>TELL US ABOUT YOUR EVENT</h2>
       <Form
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 14 }}
         layout="vertical"
         style={{ maxWidth: 600 }}
         initialValues={{
@@ -117,16 +115,16 @@ const CreateEvent = () => {
             <Switch />
           </Form.Item>
           <Form.Item
-            label="Accessibility-friendly"
+            label="Vegan-friendly"
             valuePropName="checked"
-            name="isAccessibilityFriendly"
+            name="isVeganFriendly"
           >
             <Switch />
           </Form.Item>
           <Form.Item
-            label="Vegan-friendly"
+            label="Accessible"
             valuePropName="checked"
-            name="isVeganFriendly"
+            name="isAccessibilityFriendly"
           >
             <Switch />
           </Form.Item>
