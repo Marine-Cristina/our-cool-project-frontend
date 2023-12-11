@@ -13,6 +13,7 @@ import {
   // Upload,
   Flex,
 } from "antd";
+import { API_URL } from "../core/constants";
 
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -37,7 +38,7 @@ const CreateEvent = () => {
     const eventPayload = { ...formValues, organizer: userId };
 
     axios
-      .post("http://localhost:5005/events", eventPayload, {
+      .post(`${API_URL}/events`, eventPayload, {
         headers: { authorization: `Bearer ${authToken}` },
       })
       .then((response) => {

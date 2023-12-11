@@ -6,9 +6,9 @@ import eco from "/eco.png";
 import pet from "/pet.png";
 import vegan from "/vegan.png";
 import { Flex } from "antd";
+import { API_URL } from "../core/constants";
 
-const API_URL = "http://localhost:5005/";
-const BUSINESSES_URL = `${API_URL}businesses/`;
+const BUSINESSES_URL = `${API_URL}/businesses/`;
 
 function AllBusinesses() {
   const [businesses, setBusinesses] = useState([]);

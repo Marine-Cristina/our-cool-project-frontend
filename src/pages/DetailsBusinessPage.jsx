@@ -37,16 +37,40 @@ function DetailsBusiness() {
           <p>Longitude: {businessDetails.coordinates.longitude}</p>
         </div>
       )}
-      {businessDetails.isPetFriendly && <img src={pet} alt="Pet Friendly" />}
-      {businessDetails.isChildFriendly && (
-        <img src={child} alt="Kid Friendly" />
+      {businessDetails.isPetFriendly && (
+        <img
+          src={pet}
+          alt="Pet Friendly"
+          style={{ width: "40px", height: "height" || "auto" }}
+        />
       )}
-      {businessDetails.isEcoFriendly && <img src={eco} alt="Eco Friendly" />}
+      {businessDetails.isChildFriendly && (
+        <img
+          src={child}
+          alt="Child Friendly"
+          style={{ width: "40px", height: "height" || "auto" }}
+        />
+      )}
+      {businessDetails.isEcoFriendly && (
+        <img
+          src={eco}
+          alt="Eco Friendly"
+          style={{ width: "40px", height: "height" || "auto" }}
+        />
+      )}
       {businessDetails.isAccessibilityFriendly && (
-        <img src={accessibility} alt="Accessibility Friendly" />
+        <img
+          src={accessibility}
+          alt="Accessibility Friendly"
+          style={{ width: "40px", height: "height" || "auto" }}
+        />
       )}
       {businessDetails.isVeganFriendly && (
-        <img src={vegan} alt="Vegan Friendly" />
+        <img
+          src={vegan}
+          alt="Vegan Friendly"
+          style={{ width: "40px", height: "height" || "auto" }}
+        />
       )}
     </div>
   );

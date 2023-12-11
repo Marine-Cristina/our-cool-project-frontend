@@ -12,7 +12,7 @@ import {
   Flex,
 } from "antd";
 import { useStore } from "../context/Store";
-import { typeOfBusinessKeys } from "../core/constants";
+import { API_URL, typeOfBusinessKeys } from "../core/constants";
 import { getTypeOfBusiness } from "../utils/formatters";
 
 const { TextArea } = Input;
@@ -39,7 +39,7 @@ function CreateBusiness() {
     const businessPayload = { ...formValues, owner: userId };
 
     axios
-      .post("http://localhost:5005/businesses", businessPayload, {
+      .post(`${API_URL}/businesses`, businessPayload, {
         headers: { authorization: `Bearer ${authToken}` },
       })
       .then((response) => {
@@ -123,7 +123,7 @@ function CreateBusiness() {
             <Switch />
           </Form.Item>
           <Form.Item
-            label="Accessible"
+            label="Accessibility-friendly"
             name="isAccessibilityFriendly"
             valuePropName="checked"
           >

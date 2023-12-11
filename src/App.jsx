@@ -27,6 +27,7 @@ function App() {
 
             <Route path={APP_ROUTES.BUSINESSES} element={<AllBusinesses />} />
             <Route path={APP_ROUTES.EVENTS} element={<AllEvents />} />
+
             <Route
               path={APP_ROUTES.BUSINESS_BY_ID}
               element={<DetailsBusinessPage />}
@@ -35,14 +36,13 @@ function App() {
               path={APP_ROUTES.EVENT_BY_ID}
               element={<DetailsEventsPage />}
             />
+
             <Route
               path={APP_ROUTES.NEW_BUSINESS}
               element={<CreateBusiness />}
             />
             <Route path={APP_ROUTES.NEW_EVENT} element={<CreateEvent />} />
-            <Route path="/deletebusiness" element={<DeleteBusiness />} />
-            <Route path="/filterevent" element={<FilterEvent />} />
-            <Route path="/filterbusiness" element={<FilterBusiness />} />
+
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>
