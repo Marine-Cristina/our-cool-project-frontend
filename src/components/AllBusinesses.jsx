@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { Card, Col, Row } from "antd";
 import accessibility from "/accessibility.png";
 import child from "/child.png";
 import eco from "/eco.png";
@@ -25,12 +26,11 @@ function AllBusinesses() {
   }, []);
 
   return (
-    <div>
+    <Row gutter={16}>
       {businesses &&
-        businesses.map((business, i) => {
-          return (
-            <div key={i}>
-              <h2>{business.name}</h2>
+        businesses.map((business, i) => (
+          <Col key={i} span={8}>
+            <Card title={business.name} bordered={false}>
               <h2>{business.location}</h2>
               <h2>{business.typeOfBusiness}</h2>
               <Flex gap={"middle"}>
@@ -74,10 +74,10 @@ function AllBusinesses() {
                   />
                 )}
               </Flex>
-            </div>
-          );
-        })}
-    </div>
+            </Card>
+          </Col>
+        ))}
+    </Row>
   );
 }
 

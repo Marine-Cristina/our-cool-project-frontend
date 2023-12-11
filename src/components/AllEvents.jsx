@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import {Card, Col, Row} from "antd"; 
 import accessibility from "/accessibility.png";
 import child from "/child.png";
 import eco from "/eco.png";
@@ -25,17 +26,17 @@ function AllEvents() {
   }, []);
 
   return (
-    <div>
+    < Row gutter={16}>
       {events &&
         events.map((event, i) => {
           return (
-            <div key={i}>
-              <h2>{event.nameOfTheEvent}</h2>
+            <Col key={i} span={8}>
+              <Card title={event.nameOfTheEvent} bordered={false}>
               <h2>{event.location}</h2>
               <h2>{event.date}</h2>
               <h2>{event.organizer}</h2>
               <h2>{event.price}</h2>
-              <Flex>
+              <Flex gap={"middle"}>
                 {event.isPetFriendly && (
                   <img
                     src={pet}
@@ -76,10 +77,11 @@ function AllEvents() {
                   />
                 )}
               </Flex>
-            </div>
+            </Card>
+            </Col>
           );
         })}
-    </div>
+    </Row>
   );
 }
 
