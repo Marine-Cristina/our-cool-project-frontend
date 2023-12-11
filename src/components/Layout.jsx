@@ -155,16 +155,20 @@ const Layout = ({ children }) => {
           </Header>
           <Content
             style={{
-              margin: "20px 20px",
-              padding: 20,
+              margin: "20px 20px 1px",
+              padding: 10,
               minHeight: 280,
               background: colorBgContainer,
             }}
           >
             {children}
           </Content>
-          <Footer style={{ textAlign: "center" }}>
-            Spherendly ©2023 Created by Marine & Cristina
+          <Footer
+            style={{
+              textAlign: "center",
+            }}
+          >
+            Spherendly © 2023 Created by Marine & Cristina
           </Footer>
         </AntLayout>
       </AntLayout>

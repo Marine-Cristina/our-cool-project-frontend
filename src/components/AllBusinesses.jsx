@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import accessibility from "/accessibility.png";
 import child from "/child.png";
 import eco from "/eco.png";
-import pet from "/pet.avif";
+import pet from "/pet.png";
 import vegan from "/vegan.png";
+import { Flex } from "antd";
 
 const API_URL = "http://localhost:5005/";
 const BUSINESSES_URL = `${API_URL}businesses/`;
@@ -32,27 +33,47 @@ function AllBusinesses() {
               <h2>{business.name}</h2>
               <h2>{business.location}</h2>
               <h2>{business.typeOfBusiness}</h2>
-              <h2>
-                {business.isPetFriendly && <img src={pet} alt="Pet Friendly" />}
-              </h2>
-              <h2>
+              <Flex gap={"middle"}>
+                {business.isPetFriendly && (
+                  <img
+                    src={pet}
+                    alt="Kid Friendly"
+                    style={{ width: "40px", height: "height" || "auto" }}
+                  />
+                )}
+
                 {business.isChildFriendly && (
-                  <img src={child} alt="Kid Friendly" />
+                  <img
+                    src={child}
+                    alt="Kid Friendly"
+                    style={{ width: "40px", height: "height" || "auto" }}
+                  />
                 )}
-              </h2>
-              <h2>
-                {business.isEcoFriendly && <img src={eco} alt="Eco Friendly" />}
-              </h2>
-              <h2>
+
+                {business.isEcoFriendly && (
+                  <img
+                    src={eco}
+                    alt="Eco Friendly"
+                    style={{ width: "40px", height: "height" || "auto" }}
+                  />
+                )}
+
                 {business.isAccessibilityFriendly && (
-                  <img src={accessibility} alt="Accessibility Friendly" />
+                  <img
+                    src={accessibility}
+                    alt="Accessibility Friendly"
+                    style={{ width: "40px", height: "height" || "auto" }}
+                  />
                 )}
-              </h2>
-              <h2>
+
                 {business.isVeganFriendly && (
-                  <img src={vegan} alt="Vegan Friendly" />
+                  <img
+                    src={vegan}
+                    alt="Vegan Friendly"
+                    style={{ width: "40px", height: "height" || "auto" }}
+                  />
                 )}
-              </h2>
+              </Flex>
             </div>
           );
         })}

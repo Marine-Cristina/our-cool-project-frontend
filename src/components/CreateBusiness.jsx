@@ -123,7 +123,7 @@ function CreateBusiness() {
             <Switch />
           </Form.Item>
           <Form.Item
-            label="Accessibility-friendly"
+            label="Accessible"
             name="isAccessibilityFriendly"
             valuePropName="checked"
           >

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import accessibility from "/accessibility.png";
 import child from "/child.png";
 import eco from "/eco.png";
-import pet from "/pet.avif";
+import pet from "/pet.png";
 import vegan from "/vegan.png";
 import { getTypeOfBusiness } from "../utils/formatters";
 

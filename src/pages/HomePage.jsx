@@ -1,8 +1,7 @@
 import React from "react";
-import { Select } from "antd";
+import { Flex, Select } from "antd";
 import { useNavigate } from "react-router-dom";
-
-import Header from "/header.png";
+import Header from "/headerimage.png";
 
 const { Option } = Select;
 
@@ -26,9 +25,33 @@ function HomePage() {
 
   return (
     <>
-      <img src={Header} alt="Colorful sphere" style={{ width: "100%" }} />
+      <Flex
+        gap={90}
+        justify="center"
+        align="center"
+        style={{ width: "100%", margin: "10px" }}
+      >
+        <Flex vertical="true" align="center" gap={1}>
+          <h1>Connecting Compassionate Spaces.</h1>
+          <h3 className="slogan">
+            Your Guide to Pet-Friendly, Child-Friendly, Eco-Friendly,
+            Vegan-Friendly, and Accessible Businesses & Events.
+          </h3>
+        </Flex>
+        <img src={Header} alt="Spherendly header image" />
+      </Flex>
 
-      <div>
+      <Flex
+        vertical="true"
+        justify="center"
+        align="center"
+        style={{
+          backgroundColor: "#9bccd082",
+          marginTop: "6%",
+          color: "white",
+          height: "20%",
+        }}
+      >
         <h2>Where do you want to explore?</h2>
         <Select
           showSearch
@@ -46,7 +69,7 @@ function HomePage() {
           <Option value="Burgos">Burgos, Spain</Option>
           <Option value="Paris">Paris, France</Option>
         </Select>
-      </div>
+      </Flex>
     </>
   );
 }
