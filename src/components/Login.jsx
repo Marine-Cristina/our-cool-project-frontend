@@ -16,6 +16,7 @@ const Login = ({ onCancel }) => {
         password: values.password,
       })
       .then((response) => {
+        console.log(response);
         updateAuthToken(response.data.authToken);
         setError(false);
         onCancel();

@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useStore } from "../context/Store";
 import { useNavigate } from "react-router-dom";
 import { getUserIdFromAuth } from "../utils/authUtils";
 import {
@@ -20,6 +21,7 @@ const { TextArea } = Input;
 
 const CreateEvent = () => {
   const navigate = useNavigate();
+  const { authToken } = useStore();
 
   useEffect(() => {
     const fetchUserId = async () => {
