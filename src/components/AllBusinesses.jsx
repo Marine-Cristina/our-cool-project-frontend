@@ -18,6 +18,7 @@ import {
 import Meta from "antd/es/card/Meta";
 import { useStore } from "../context/Store";
 import { NavLink } from "react-router-dom";
+import { getTypeOfBusiness } from "../utils/formatters";
 
 function AllBusinesses() {
   const [businesses, setBusinesses] = useState([]);
@@ -53,10 +54,10 @@ function AllBusinesses() {
                 }}
                 loading={loading}
                 hoverable
-                extra={business.typeOfBusiness}
+                extra={getTypeOfBusiness(business.typeOfBusiness)}
                 cover={<img alt="example" src={business.photo || noPicture} />}
                 actions={[
-                  <NavLink to={`${APP_ROUTES.BUSINESS_BY_ID}`}>
+                  <NavLink to={`${APP_ROUTES.BUSINESSES}/${business._id}`}>
                     <InfoCircleOutlined key="info" />
                   </NavLink>,
 

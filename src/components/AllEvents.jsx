@@ -56,7 +56,7 @@ function AllEvents() {
                 extra={event.price ? event.price : "Free"}
                 cover={<img alt="example" src={event.photo || noPicture} />}
                 actions={[
-                  <NavLink to={`${APP_ROUTES.BUSINESS_BY_ID}`}>
+                  <NavLink to={`${APP_ROUTES.EVENTS}/${event._id}`}>
                     <InfoCircleOutlined key="info" />
                   </NavLink>,
                   ,
