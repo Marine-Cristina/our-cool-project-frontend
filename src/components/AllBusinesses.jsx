@@ -8,21 +8,17 @@ import pet from "/pet.png";
 import vegan from "/vegan.png";
 import { Flex } from "antd";
 import { API_URL } from "../core/constants";
-
 function AllBusinesses() {
   const [businesses, setBusinesses] = useState([]);
-
   const getAllBusiness = () => {
     axios
       .get(`${API_URL}/businesses/`)
       .then((response) => setBusinesses(response.data))
       .catch((error) => console.log(error));
   };
-
   useEffect(() => {
     getAllBusiness();
   }, []);
-
   return (
     <Row gutter={16}>
       {businesses &&
@@ -39,7 +35,6 @@ function AllBusinesses() {
                     style={{ width: "40px", height: "height" || "auto" }}
                   />
                 )}
-
                 {business.isChildFriendly && (
                   <img
                     src={child}
@@ -47,7 +42,6 @@ function AllBusinesses() {
                     style={{ width: "40px", height: "height" || "auto" }}
                   />
                 )}
-
                 {business.isEcoFriendly && (
                   <img
                     src={eco}
@@ -55,7 +49,6 @@ function AllBusinesses() {
                     style={{ width: "40px", height: "height" || "auto" }}
                   />
                 )}
-
                 {business.isAccessibilityFriendly && (
                   <img
                     src={accessibility}
@@ -63,7 +56,6 @@ function AllBusinesses() {
                     style={{ width: "40px", height: "height" || "auto" }}
                   />
                 )}
-
                 {business.isVeganFriendly && (
                   <img
                     src={vegan}
@@ -78,5 +70,4 @@ function AllBusinesses() {
     </Row>
   );
 }
-
 export default AllBusinesses;
