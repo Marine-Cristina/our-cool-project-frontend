@@ -6,8 +6,7 @@ import child from "/child.png";
 import eco from "/eco.png";
 import pet from "/pet.png";
 import vegan from "/vegan.png";
-
-const EVENTS_URL = "http://localhost:5005/events";
+import { API_URL } from "../core/constants";
 
 function DetailsEvent() {
   const [eventDetails, setEventDetails] = useState({});
@@ -15,7 +14,7 @@ function DetailsEvent() {
 
   useEffect(() => {
     axios
-      .get(`${EVENTS_URL}/${eventId}`)
+      .get(`${API_URL}/events/${eventId}`)
       .then((response) => {
         setEventDetails(response.data);
       })

@@ -7,8 +7,7 @@ import eco from "/eco.png";
 import pet from "/pet.png";
 import vegan from "/vegan.png";
 import { getTypeOfBusiness } from "../utils/formatters";
-
-const BUSINESS_URL = "http://localhost:5005/businesses";
+import { API_URL } from "../core/constants";
 
 function DetailsBusiness() {
   const [businessDetails, setBusinessDetails] = useState({});
@@ -16,7 +15,7 @@ function DetailsBusiness() {
 
   useEffect(() => {
     axios
-      .get(`${BUSINESS_URL}/${businessId}`)
+      .get(`${API_URL}/businesses/${businessId}`)
       .then((response) => {
         setBusinessDetails(response.data);
       })
