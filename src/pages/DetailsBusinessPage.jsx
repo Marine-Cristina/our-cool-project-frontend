@@ -12,6 +12,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import noPicture from "/no-picture.png";
 import { getTypeOfBusiness } from "../utils/formatters";
+import DeleteBusiness from "../components/DeleteBusiness";
 
 function DetailsBusiness() {
   const [businessDetails, setBusinessDetails] = useState({});
@@ -41,7 +42,10 @@ function DetailsBusiness() {
       hoverable
       extra={getTypeOfBusiness(businessDetails.typeOfBusiness)}
       cover={<img alt="example" src={businessDetails.photo || noPicture} />}
-      actions={[<EditOutlined key="edit" />, <DeleteOutlined key="delete" />]}
+      actions={[
+        <EditOutlined key="edit" />,
+        <DeleteBusiness businessId={businessDetails._id} />,
+      ]}
     >
       <Meta
         title={businessDetails.name}
