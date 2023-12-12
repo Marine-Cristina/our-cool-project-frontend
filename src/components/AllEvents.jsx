@@ -7,16 +7,33 @@ import eco from "/eco.png";
 import pet from "/pet.png";
 import vegan from "/vegan.png";
 import { Flex } from "antd";
-import { API_URL } from "../core/constants";
+import { API_URL, APP_ROUTES } from "../core/constants";
+import { useStore } from "../context/Store";
+import noPicture from "/no-picture.png";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  InfoCircleOutlined,
+} from "@ant-design/icons";
+import Meta from "antd/es/card/Meta";
+import { NavLink } from "react-router-dom";
 
 function AllEvents() {
   const [events, setEvents] = useState([]);
+  const { isAuthenticated } = useStore();
+  const [loading, setLoading] = useState(true);
 
   const getAllEvents = () => {
     axios
       .get(`${API_URL}/events/`)
-      .then((response) => setEvents(response.data))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        setEvents(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -24,25 +41,43 @@ function AllEvents() {
   }, []);
 
   return (
-    <Row gutter={16}>
+    <Row>
       {events &&
         events.map((event, i) => {
           return (
             <Col key={i} span={8}>
-              <Card title={event.nameOfTheEvent} bordered={false}>
-                <h2>{event.location}</h2>
-                <h2>{event.date}</h2>
-                <h2>{event.organizer}</h2>
-                <h2>{event.price}</h2>
+              <Card
+                style={{
+                  width: 350,
+                  marginBottom: "25px",
+                }}
+                loading={loading}
+                hoverable
+                extra={event.price ? event.price : "Free"}
+                cover={<img alt="example" src={event.photo || noPicture} />}
+                actions={[
+                  <NavLink to={`${APP_ROUTES.BUSINESS_BY_ID}`}>
+                    <InfoCircleOutlined key="info" />
+                  </NavLink>,
+                  ,
+                  <EditOutlined key="edit" />,
+                  <DeleteOutlined key="delete" />,
+                ]}
+              >
+                <Meta
+                  title={event.nameOfTheEvent}
+                  description={event.location}
+                  style={{ marginBottom: "15px" }}
+                />
+
                 <Flex gap={"middle"}>
                   {event.isPetFriendly && (
                     <img
                       src={pet}
-                      alt="Pet Friendly"
+                      alt="Kid Friendly"
                       style={{ width: "40px", height: "height" || "auto" }}
                     />
                   )}
-
                   {event.isChildFriendly && (
                     <img
                       src={child}
@@ -50,7 +85,6 @@ function AllEvents() {
                       style={{ width: "40px", height: "height" || "auto" }}
                     />
                   )}
-
                   {event.isEcoFriendly && (
                     <img
                       src={eco}
@@ -58,7 +92,6 @@ function AllEvents() {
                       style={{ width: "40px", height: "height" || "auto" }}
                     />
                   )}
-
                   {event.isAccessibilityFriendly && (
                     <img
                       src={accessibility}
@@ -66,7 +99,6 @@ function AllEvents() {
                       style={{ width: "40px", height: "height" || "auto" }}
                     />
                   )}
-
                   {event.isVeganFriendly && (
                     <img
                       src={vegan}
