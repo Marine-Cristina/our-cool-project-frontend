@@ -21,6 +21,7 @@ const { TextArea } = Input;
 
 const CreateEvent = () => {
   const navigate = useNavigate();
+  const [userId, setUserId] = useState();
   const { authToken } = useStore();
 
   useEffect(() => {
