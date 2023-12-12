@@ -144,7 +144,9 @@ const CreateEvent = () => {
           </Upload>
         </Form.Item> */}
         <Form.Item>
-          <Button onClick={() => navigate("/events")}>Publish Event</Button>
+          <Button type="primary" htmlType="submit">
+            Publish Event
+          </Button>
         </Form.Item>
       </Form>
     </>
