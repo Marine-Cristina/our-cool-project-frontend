@@ -3,6 +3,8 @@ import { Flex, Select } from "antd";
 import { useNavigate } from "react-router-dom";
 import Header from "/headerimage.png";
 
+
+
 const { Option } = Select;
 
 function HomePage() {
@@ -29,6 +31,7 @@ function HomePage() {
         gap={90}
         justify="center"
         align="center"
+        className = "homepage-header"
         style={{ width: "100%", margin: "10px" }}
       >
         <Flex vertical="true" align="center" gap={1}>
