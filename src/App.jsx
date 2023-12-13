@@ -12,6 +12,7 @@ import Layout from "./components/Layout/Layout";
 import { APP_ROUTES } from "./core/constants";
 import Store from "./context/Store";
 import NotFoundPage from "./pages/NotFoundPage";
+import EditBusinessPage from "./pages/EditBusinessPage";
 
 function App() {
   return (
@@ -37,7 +38,10 @@ function App() {
             <Route path={APP_ROUTES.NEW_BUSINESS} element={<BusinessForm />} />
             <Route path={APP_ROUTES.NEW_EVENT} element={<CreateEvent />} />
 
-            <Route path={APP_ROUTES.EDIT_BUSINESS} element={<BusinessForm />} />
+            <Route
+              path={APP_ROUTES.EDIT_BUSINESS}
+              element={<EditBusinessPage />}
+            />
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

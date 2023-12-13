@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import accessibility from "/accessibility.png";
 import child from "/child.png";
 import eco from "/eco.png";
 import pet from "/pet.png";
 import vegan from "/vegan.png";
-import { API_URL } from "../core/constants";
+import { API_URL, APP_ROUTES } from "../core/constants";
 import { Card, Flex } from "antd";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import noPicture from "/no-picture.png";
 import { getTypeOfBusiness } from "../utils/formatters";
@@ -43,7 +43,9 @@ function DetailsBusiness() {
       extra={getTypeOfBusiness(businessDetails.typeOfBusiness)}
       cover={<img alt="example" src={businessDetails.photo || noPicture} />}
       actions={[
-        <EditOutlined key="edit" />,
+        <NavLink to={`${APP_ROUTES.BUSINESSES}/${businessDetails._id}/edit`}>
+          <EditOutlined key="edit" />
+        </NavLink>,
         <DeleteBusiness businessId={businessDetails._id} />,
       ]}
     >

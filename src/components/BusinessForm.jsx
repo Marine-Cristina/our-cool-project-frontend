@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Form, Input, Select, Switch, Flex } from "antd";
+import { Button, Form, Input, Select, Switch, Flex, Col } from "antd";
 import { useStore } from "../context/Store";
 import { API_URL, typeOfBusinessKeys } from "../core/constants";
 import { getTypeOfBusiness } from "../utils/formatters";
@@ -52,7 +52,6 @@ function BusinessForm() {
 
   return (
     <>
-      <h2>TELL THE WORLD ABOUT YOUR BUSINESS</h2>
       <Form
         layout="vertical"
         style={{ maxWidth: 600 }}
@@ -75,6 +74,7 @@ function BusinessForm() {
         }
         onFinish={handleSubmit}
       >
+        <h3>Tell the world about your business!</h3>
         <Form.Item label="Name" name="name">
           <Input placeholder="What's the name of your business?" />
         </Form.Item>
