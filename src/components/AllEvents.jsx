@@ -53,20 +53,21 @@ function AllEvents() {
                 }}
                 loading={loading}
                 hoverable
-                extra={event.price ? event.price : "Free"}
-                cover={<img alt="example" src={event.photo || noPicture} />}
-                actions={[
+                extra={
                   <NavLink to={`${APP_ROUTES.EVENTS}/${event._id}`}>
                     <InfoCircleOutlined key="info" />
-                  </NavLink>,
-                  ,
-                  <EditOutlined key="edit" />,
-                  <DeleteOutlined key="delete" />,
-                ]}
+                  </NavLink>
+                }
+                cover={<img alt="example" src={event.photo || noPicture} />}
               >
                 <Meta
                   title={event.nameOfTheEvent}
-                  description={event.location}
+                  description={
+                    <div>
+                      {event.location} &nbsp;|&nbsp;{" "}
+                      {event.price ? `${event.price} €` : "Free"}
+                    </div>
+                  }
                   style={{ marginBottom: "15px" }}
                 />
 

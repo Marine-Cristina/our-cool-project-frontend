@@ -51,16 +51,12 @@ function AllBusinesses() {
                 }}
                 loading={loading}
                 hoverable
-                extra={getTypeOfBusiness(business.typeOfBusiness)}
-                cover={<img alt="example" src={business.photo || noPicture} />}
-                actions={[
+                extra={
                   <NavLink to={`${APP_ROUTES.BUSINESSES}/${business._id}`}>
                     <InfoCircleOutlined key="info" />
-                  </NavLink>,
-                  <NavLink to={`${APP_ROUTES.BUSINESSES}/${business._id}/edit`}>
-                    <EditOutlined key="edit" />
-                  </NavLink>,
-                ]}
+                  </NavLink>
+                }
+                cover={<img alt="example" src={business.photo || noPicture} />}
               >
                 <Meta
                   avatar={
@@ -71,7 +67,12 @@ function AllBusinesses() {
                     )
                   }
                   title={business.name}
-                  description={business.location}
+                  description={
+                    <div>
+                      {getTypeOfBusiness(business.typeOfBusiness)} &nbsp;|&nbsp;{" "}
+                      {business.location}
+                    </div>
+                  }
                   style={{ marginBottom: "15px" }}
                 />
 
