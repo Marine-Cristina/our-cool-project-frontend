@@ -5,6 +5,7 @@ import { Button, Form, Input, Select, Switch, Flex, Col } from "antd";
 import { useStore } from "../context/Store";
 import { API_URL, typeOfBusinessKeys } from "../core/constants";
 import { getTypeOfBusiness } from "../utils/formatters";
+import BusinessCard from "./BusinessCard";
 
 const { TextArea } = Input;
 
@@ -51,7 +52,9 @@ function BusinessForm() {
   };
 
   return (
-    <>
+    <Flex gap={"middle"}>
+      <BusinessCard businessDetails={businessDetails} loading={loading} />
+
       <Form
         layout="vertical"
         style={{ maxWidth: 600 }}
@@ -72,6 +75,9 @@ function BusinessForm() {
               }
             : { ...businessDetails }
         }
+        onValuesChange={(changedValues, allValues) => {
+          setBusinessDetails(allValues);
+        }}
         onFinish={handleSubmit}
       >
         <h3>Tell the world about your business!</h3>
@@ -148,7 +154,7 @@ function BusinessForm() {
           <Button htmlType="Submit">Publish Business</Button>
         </Form.Item>
       </Form>
-    </>
+    </Flex>
   );
 }
 

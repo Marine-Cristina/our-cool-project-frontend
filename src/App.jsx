@@ -5,7 +5,7 @@ import AllBusinesses from "./components/AllBusinesses";
 import AllEvents from "./components/AllEvents";
 import DetailsBusinessPage from "./pages/DetailsBusinessPage";
 import BusinessForm from "./components/BusinessForm";
-import CreateEvent from "./components/CreateEvent";
+import CreateEvent from "./components/EventForm";
 import DetailsEventsPage from "./pages/DetailsEventsPage";
 import Title from "./components/Layout/Title";
 import Layout from "./components/Layout/Layout";
@@ -14,6 +14,7 @@ import Store from "./context/Store";
 import NotFoundPage from "./pages/NotFoundPage";
 import EditBusinessPage from "./pages/EditBusinessPage";
 import IsPrivate from "./components/isPrivate";
+import EditEventPage from "./pages/EditEventPage";
 
 function App() {
   return (
@@ -29,19 +30,54 @@ function App() {
 
             <Route
               path={APP_ROUTES.BUSINESS_BY_ID}
-              element={<IsPrivate><DetailsBusinessPage /></IsPrivate>}
+              element={
+                <IsPrivate>
+                  <DetailsBusinessPage />
+                </IsPrivate>
+              }
             />
             <Route
               path={APP_ROUTES.EVENT_BY_ID}
-              element={<IsPrivate><DetailsEventsPage /></IsPrivate>}
+              element={
+                <IsPrivate>
+                  <DetailsEventsPage />
+                </IsPrivate>
+              }
             />
 
-            <Route path={APP_ROUTES.NEW_BUSINESS} element={<BusinessForm />} />
-            <Route path={APP_ROUTES.NEW_EVENT} element={<CreateEvent />} />
+            <Route
+              path={APP_ROUTES.NEW_BUSINESS}
+              element={
+                <IsPrivate>
+                  <BusinessForm />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path={APP_ROUTES.NEW_EVENT}
+              element={
+                <IsPrivate>
+                  <CreateEvent />
+                </IsPrivate>
+              }
+            />
 
             <Route
               path={APP_ROUTES.EDIT_BUSINESS}
-              element={<EditBusinessPage />}
+              element={
+                <IsPrivate>
+                  <EditBusinessPage />
+                </IsPrivate>
+              }
+            />
+
+            <Route
+              path={APP_ROUTES.EDIT_EVENT}
+              element={
+                <IsPrivate>
+                  <EditEventPage />
+                </IsPrivate>
+              }
             />
 
             <Route path="*" element={<NotFoundPage />} />

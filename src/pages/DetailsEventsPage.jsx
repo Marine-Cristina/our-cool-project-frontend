@@ -1,20 +1,10 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import accessibility from "/accessibility.png";
-import child from "/child.png";
-import eco from "/eco.png";
-import pet from "/pet.png";
-import vegan from "/vegan.png";
 import { API_URL } from "../core/constants";
-import { Card, Flex } from "antd";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import Meta from "antd/es/card/Meta";
-import noPicture from "/no-picture.png";
-import DeleteBusiness from "../components/Delete/DeleteBusiness";
-import DeleteEvent from "../components/Delete/DeleteEvent";
+import EventCard from "../components/EventCard";
 
-function DetailsEvent() {
+function DetailsEventPage() {
   const [eventDetails, setEventDetails] = useState({});
   const { eventId } = useParams();
   const [loading, setLoading] = useState(true);
@@ -32,66 +22,7 @@ function DetailsEvent() {
       });
   }, [eventId]);
 
-  return (
-    <Card
-      style={{
-        width: 550,
-        marginBottom: "25px",
-      }}
-      loading={loading}
-      hoverable
-      extra={eventDetails.organizer}
-      cover={<img alt="example" src={eventDetails.photo || noPicture} />}
-      actions={[
-        <EditOutlined key="edit" />,
-        <DeleteEvent eventId={eventDetails._id} />,
-      ]}
-    >
-      <Meta
-        title={eventDetails.name}
-        description={eventDetails.location}
-        style={{ marginBottom: "15px" }}
-      />
-
-      <Flex gap={"middle"}>
-        {eventDetails.isPetFriendly && (
-          <img
-            src={pet}
-            alt="Kid Friendly"
-            style={{ width: "40px", height: "height" || "auto" }}
-          />
-        )}
-        {eventDetails.isChildFriendly && (
-          <img
-            src={child}
-            alt="Kid Friendly"
-            style={{ width: "40px", height: "height" || "auto" }}
-          />
-        )}
-        {eventDetails.isEcoFriendly && (
-          <img
-            src={eco}
-            alt="Eco Friendly"
-            style={{ width: "40px", height: "height" || "auto" }}
-          />
-        )}
-        {eventDetails.isAccessibilityFriendly && (
-          <img
-            src={accessibility}
-            alt="Accessibility Friendly"
-            style={{ width: "40px", height: "height" || "auto" }}
-          />
-        )}
-        {eventDetails.isVeganFriendly && (
-          <img
-            src={vegan}
-            alt="Vegan Friendly"
-            style={{ width: "40px", height: "height" || "auto" }}
-          />
-        )}
-      </Flex>
-    </Card>
-  );
+  return <EventCard eventDetails={eventDetails} loading={loading} />;
 }
 
-export default DetailsEvent;
+export default DetailsEventPage;

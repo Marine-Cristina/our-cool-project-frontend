@@ -1,44 +1,51 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useStore } from "../context/Store";
-import { useNavigate } from "react-router-dom";
-import { getUserIdFromAuth } from "../utils/authUtils";
 import {
   Button,
-  DatePicker,
+  // Upload,
+  Flex,
   Form,
   Input,
   InputNumber,
   Select,
   Switch,
-  // Upload,
-  Flex,
 } from "antd";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useStore } from "../context/Store";
 import { API_URL } from "../core/constants";
+import EventCard from "./EventCard";
 
-const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-const CreateEvent = () => {
+const EventForm = () => {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState();
   const { authToken } = useStore();
+  const { eventId } = useParams();
+  const [eventDetails, setEventDetails] = useState({});
+  const isEditView = eventId !== undefined;
+  const [loading, setLoading] = useState(isEditView);
 
   useEffect(() => {
-    const fetchUserId = async () => {
-      try {
-        const userId = await getUserIdFromAuth();
-        setUserId(userId);
-      } catch (error) {
-        console.error("Error fetching user ID:", error);
-      }
-    };
+    if (eventId !== undefined) {
+      axios
+        .get(`${API_URL}/events/${eventId}`)
+        .then((response) => {
+          setEventDetails(response.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+        });
+    }
+  }, [eventId]);
 
-    fetchUserId();
-  }, []);
+  if (loading === true) {
+    return "Loading";
+  }
 
   const handleSubmit = (formValues) => {
-    const eventPayload = { ...formValues, organizer: userId };
+    const eventPayload = { ...formValues };
 
     axios
       .post(`${API_URL}/events`, eventPayload, {
@@ -53,27 +60,36 @@ const CreateEvent = () => {
   };
 
   return (
-    <>
-      <h2>TELL US ABOUT YOUR EVENT</h2>
+    <Flex gap={"middle"}>
+      <EventCard eventDetails={eventDetails} loading={loading} />
+
       <Form
         layout="vertical"
         style={{ maxWidth: 600 }}
-        initialValues={{
-          nameOfTheEvent: "",
-          location: "",
-          coordinates: [],
-          date: "",
-          price: 0,
-          description: "",
-          isPetFriendly: false,
-          isChildFriendly: false,
-          isEcoFriendly: false,
-          isAccessibilityFriendly: false,
-          isVeganFriendly: false,
-          contact: "",
+        initialValues={
+          eventDetails === undefined
+            ? {
+                nameOfTheEvent: "",
+                location: "",
+                coordinates: [],
+                date: "",
+                price: 0,
+                description: "",
+                isPetFriendly: false,
+                isChildFriendly: false,
+                isEcoFriendly: false,
+                isAccessibilityFriendly: false,
+                isVeganFriendly: false,
+                contact: "",
+              }
+            : { ...eventDetails }
+        }
+        onValuesChange={(changedValues, allValues) => {
+          setEventDetails(allValues);
         }}
         onFinish={handleSubmit}
       >
+        <h3>Tell the world about your event!</h3>
         <Form.Item label="Name" name="nameOfTheEvent">
           <Input placeholder="What's the name of your event?" />
         </Form.Item>
@@ -87,7 +103,7 @@ const CreateEvent = () => {
           </Select>
         </Form.Item>
         <Form.Item label="Date" name="date">
-          <RangePicker />
+          <Date />
         </Form.Item>
         <Form.Item label="Price" name="price">
           <InputNumber type="number" min={0} suffix="€" />
@@ -149,8 +165,8 @@ const CreateEvent = () => {
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </Flex>
   );
 };
 
-export default CreateEvent;
+export default EventForm;
