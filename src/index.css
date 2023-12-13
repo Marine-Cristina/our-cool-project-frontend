@@ -10,6 +10,11 @@
 
 /* Smaller Screen*/
 @media (max-width: 576px) {
+  .AllBusinesses {
+    display: flex;
+    flex-direction: column;
+  }
+
   .homepage-header {
     display: flex;
     flex-direction: column;
@@ -61,6 +66,11 @@
 }
 /* Medium screen */
 @media (min-width: 577px) and (max-width: 992px) {
+  .AllBusinesses {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+  }
   h1 {
     font-size: 1.5em;
     max-width: 100%;
@@ -70,11 +80,8 @@
   }
 }
 
-/* Smaller Screen*/
-@media (max-width: 576px) {
-  .homepage-header {
-    display: contents;
-  }
+/* Desktop Screen */
+@media (min-width: 993px) and (max-width: 999px) {
   body {
     margin: 0;
   }
@@ -88,15 +95,15 @@
   }
 
   h1 {
-    font-size: 30px;
+    font-size: 40px;
   }
 
   h2 {
-    font-size: 24px;
+    font-size: 30px;
   }
 
   h3 {
-    font-size: 20px;
+    font-size: 25px;
   }
 
   .slogan {
@@ -105,66 +112,25 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 100%;
+    width: 80%;
   }
 
   .header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .header-text {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 50%;
   }
-}
-
-/* Desktop Screen */
-body {
-  margin: 0;
-}
-
-#root {
-  height: 100vh;
-  display: flex;
-  flex: 1;
-  background-color: #eff0ec;
-  color: #153244;
-}
-
-h1 {
-  font-size: 40px;
-}
-
-h2 {
-  font-size: 30px;
-}
-
-h3 {
-  font-size: 25px;
-}
-
-.slogan {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 80%;
-}
-
-.header {
-  display: flex;
-  flex-direction: row;
-}
-
-.header-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 50%;
+  .AllBusinesses {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+  }
 }
 
 /* Large Screen */
@@ -212,5 +178,11 @@ h3 {
     flex-direction: column;
     align-items: center;
     width: 50%;
+  }
+
+  .AllBusinesses {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
   }
 }
