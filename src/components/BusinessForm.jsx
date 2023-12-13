@@ -1,42 +1,42 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { getUserIdFromAuth } from "../utils/authUtils";
-import {
-  Button,
-  Form,
-  Input,
-  Select,
-  Switch,
-  // Upload,
-  Flex,
-} from "antd";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button, Form, Input, Select, Switch, Flex } from "antd";
 import { useStore } from "../context/Store";
 import { API_URL, typeOfBusinessKeys } from "../core/constants";
 import { getTypeOfBusiness } from "../utils/formatters";
 
 const { TextArea } = Input;
 
-function CreateBusiness() {
+function BusinessForm() {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState();
   const { authToken } = useStore();
+  const { businessId } = useParams();
+  const [businessDetails, setBusinessDetails] = useState();
+  const isEditView = businessId !== undefined;
+  const [loading, setLoading] = useState(isEditView);
 
   useEffect(() => {
-    const fetchUserId = async () => {
-      try {
-        const userId = await getUserIdFromAuth();
-        setUserId(userId);
-      } catch (error) {
-        console.error("Error fetching user ID:", error);
-      }
-    };
+    if (businessId !== undefined) {
+      axios
+        .get(`${API_URL}/businesses/${businessId}`)
+        .then((response) => {
+          setBusinessDetails(response.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+        });
+    }
+  }, [businessId]);
 
-    fetchUserId();
-  }, []);
+  if (loading === true) {
+    return "Loading";
+  }
 
   const handleSubmit = (formValues) => {
-    const businessPayload = { ...formValues, owner: userId };
+    const businessPayload = { ...formValues };
 
     axios
       .post(`${API_URL}/businesses`, businessPayload, {
@@ -56,19 +56,23 @@ function CreateBusiness() {
       <Form
         layout="vertical"
         style={{ maxWidth: 600 }}
-        initialValues={{
-          name: "",
-          location: "",
-          coordinates: [],
-          typeOfBusiness: "",
-          description: "",
-          isPetFriendly: false,
-          isChildFriendly: false,
-          isEcoFriendly: false,
-          isAccessibilityFriendly: false,
-          isVeganFriendly: false,
-          contact: "",
-        }}
+        initialValues={
+          businessDetails === undefined
+            ? {
+                name: "",
+                location: "",
+                coordinates: [],
+                typeOfBusiness: "",
+                description: "",
+                isPetFriendly: false,
+                isChildFriendly: false,
+                isEcoFriendly: false,
+                isAccessibilityFriendly: false,
+                isVeganFriendly: false,
+                contact: "",
+              }
+            : { ...businessDetails }
+        }
         onFinish={handleSubmit}
       >
         <Form.Item label="Name" name="name">
@@ -148,4 +152,4 @@ function CreateBusiness() {
   );
 }
 
-export default CreateBusiness;
+export default BusinessForm;

@@ -57,8 +57,9 @@ function AllBusinesses() {
                   <NavLink to={`${APP_ROUTES.BUSINESSES}/${business._id}`}>
                     <InfoCircleOutlined key="info" />
                   </NavLink>,
-
-                  <EditOutlined key="edit" />,
+                  <NavLink to={`${APP_ROUTES.BUSINESSES}/${business._id}/edit`}>
+                    <EditOutlined key="edit" />
+                  </NavLink>,
                 ]}
               >
                 <Meta

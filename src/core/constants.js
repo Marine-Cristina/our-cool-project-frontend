@@ -7,6 +7,7 @@ export const APP_ROUTES = {
   EVENT_BY_ID: "/events/:eventId",
   NEW_EVENT: "/events/new",
   ABOUT: "/about",
+  EDIT_BUSINESS: "/businesses/:businessId/edit",
 };
 
 export const API_URL = import.meta.env.VITE_API_URL;

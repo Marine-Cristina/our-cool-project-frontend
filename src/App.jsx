@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import AllBusinesses from "./components/AllBusinesses";
 import AllEvents from "./components/AllEvents";
 import DetailsBusinessPage from "./pages/DetailsBusinessPage";
-import CreateBusiness from "./components/CreateBusiness";
+import BusinessForm from "./components/BusinessForm";
 import CreateEvent from "./components/CreateEvent";
 import DetailsEventsPage from "./pages/DetailsEventsPage";
 import Title from "./components/Title";
@@ -34,11 +34,10 @@ function App() {
               element={<DetailsEventsPage />}
             />
 
-            <Route
-              path={APP_ROUTES.NEW_BUSINESS}
-              element={<CreateBusiness />}
-            />
+            <Route path={APP_ROUTES.NEW_BUSINESS} element={<BusinessForm />} />
             <Route path={APP_ROUTES.NEW_EVENT} element={<CreateEvent />} />
+
+            <Route path={APP_ROUTES.EDIT_BUSINESS} element={<BusinessForm />} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
