@@ -11,6 +11,8 @@ import { Card, Flex } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import noPicture from "/no-picture.png";
+import DeleteBusiness from "../components/Delete/DeleteBusiness";
+import DeleteEvent from "../components/Delete/DeleteEvent";
 
 function DetailsEvent() {
   const [eventDetails, setEventDetails] = useState({});
@@ -40,7 +42,10 @@ function DetailsEvent() {
       hoverable
       extra={eventDetails.organizer}
       cover={<img alt="example" src={eventDetails.photo || noPicture} />}
-      actions={[<EditOutlined key="edit" />, <DeleteOutlined key="delete" />]}
+      actions={[
+        <EditOutlined key="edit" />,
+        <DeleteEvent eventId={eventDetails._id} />,
+      ]}
     >
       <Meta
         title={eventDetails.name}

@@ -2,8 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Alert, Button, Checkbox, Form, Input, Flex } from "antd";
-import { API_URL } from "../core/constants";
-import { useStore } from "../context/Store";
+import { API_URL } from "../../core/constants";
+import { useStore } from "../../context/Store";
 
 const Login = ({ onCancel }) => {
   const [error, setError] = useState(false);

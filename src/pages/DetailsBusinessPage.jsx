@@ -12,7 +12,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import noPicture from "/no-picture.png";
 import { getTypeOfBusiness } from "../utils/formatters";
-import DeleteBusiness from "../components/DeleteBusiness";
+import DeleteBusiness from "../components/Delete/DeleteBusiness";
 
 function DetailsBusiness() {
   const [businessDetails, setBusinessDetails] = useState({});

@@ -52,7 +52,7 @@ function BusinessForm() {
 
   return (
     <>
-      <h2>TELL US ABOUT YOUR BUSINESS</h2>
+      <h2>TELL THE WORLD ABOUT YOUR BUSINESS</h2>
       <Form
         layout="vertical"
         style={{ maxWidth: 600 }}

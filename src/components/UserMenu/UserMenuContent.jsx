@@ -1,7 +1,7 @@
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { useStore } from "../../context/Store";
 import { Menu } from "antd";
-import LoginModal from "../LoginModal";
+import LoginModal from "../Authentication/LoginModal";
 import { useState } from "react";
 
 function UserMenuContent() {

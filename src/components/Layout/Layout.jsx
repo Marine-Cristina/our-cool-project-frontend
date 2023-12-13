@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
   HomeOutlined,
   BoldOutlined,
   ScheduleOutlined,
@@ -22,10 +20,10 @@ import {
 } from "antd";
 import Logo from "/logo.png";
 import { useNavigate } from "react-router-dom";
-import { APP_ROUTES } from "../core/constants";
-import { useStore } from "../context/Store";
-import UserMenu from "./UserMenu/UserMenu";
-import LoginModal from "./LoginModal";
+import { APP_ROUTES } from "../../core/constants";
+import { useStore } from "../../context/Store";
+import UserMenu from "../UserMenu/UserMenu";
+import LoginModal from "../Authentication/LoginModal";
 
 const { Header, Sider, Content, Footer } = AntLayout;
 

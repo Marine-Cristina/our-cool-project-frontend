@@ -10,12 +10,11 @@ import { Flex } from "antd";
 import { API_URL, APP_ROUTES } from "../core/constants";
 import Logo from "/logo.png";
 import noPicture from "/no-picture.png";
-import { EditOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import { InfoCircleOutlined } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import { useStore } from "../context/Store";
 import { NavLink } from "react-router-dom";
 import { getTypeOfBusiness } from "../utils/formatters";
-import DeleteBusiness from "./DeleteBusiness";
 
 function AllBusinesses() {
   const [businesses, setBusinesses] = useState([]);

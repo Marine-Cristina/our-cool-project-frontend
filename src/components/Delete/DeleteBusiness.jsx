@@ -1,7 +1,6 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_URL, APP_ROUTES } from "../core/constants";
+import { API_URL, APP_ROUTES } from "../../core/constants";
 import { Button, Popconfirm } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 

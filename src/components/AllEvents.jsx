@@ -10,11 +10,7 @@ import { Flex } from "antd";
 import { API_URL, APP_ROUTES } from "../core/constants";
 import { useStore } from "../context/Store";
 import noPicture from "/no-picture.png";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  InfoCircleOutlined,
-} from "@ant-design/icons";
+import { InfoCircleOutlined } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import { NavLink } from "react-router-dom";
 
