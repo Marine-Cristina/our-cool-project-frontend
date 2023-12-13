@@ -44,7 +44,7 @@ function AllBusinesses() {
           businesses.map((business, i) => (
             <Col key={i} span={8}>
               <Card
-              className="AllBusinesses"
+                className="AllBusinesses"
                 style={{
                   width: 350,
                   marginBottom: "25px",

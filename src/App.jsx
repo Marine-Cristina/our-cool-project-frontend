@@ -13,6 +13,7 @@ import { APP_ROUTES } from "./core/constants";
 import Store from "./context/Store";
 import NotFoundPage from "./pages/NotFoundPage";
 import EditBusinessPage from "./pages/EditBusinessPage";
+import IsPrivate from "./components/isPrivate";
 
 function App() {
   return (
@@ -28,11 +29,11 @@ function App() {
 
             <Route
               path={APP_ROUTES.BUSINESS_BY_ID}
-              element={<DetailsBusinessPage />}
+              element={<IsPrivate><DetailsBusinessPage /></IsPrivate>}
             />
             <Route
               path={APP_ROUTES.EVENT_BY_ID}
-              element={<DetailsEventsPage />}
+              element={<IsPrivate><DetailsEventsPage /></IsPrivate>}
             />
 
             <Route path={APP_ROUTES.NEW_BUSINESS} element={<BusinessForm />} />
