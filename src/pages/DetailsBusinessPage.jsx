@@ -56,10 +56,10 @@ function DetailsBusiness() {
     >
       <Meta
         title={businessDetails.name}
-        description={businessDetails.location}
+        description={businessDetails.description}
         style={{ marginBottom: "15px" }}
       />
-
+      <div>{businessDetails.contact}</div>
       <Flex gap={"middle"}>
         {businessDetails.isPetFriendly && (
           <img

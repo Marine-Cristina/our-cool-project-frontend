@@ -102,7 +102,16 @@ const EventForm = () => {
         onFinish={handleUpload}
       >
         <h3>Tell the world about your event!</h3>
-        <Form.Item label="Name" name="name">
+        <Form.Item
+          label="Name"
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: "Please introduce the name of your event.",
+            },
+          ]}
+        >
           <Input placeholder="What's the name of your event?" />
         </Form.Item>
         <Form.Item
@@ -124,7 +133,7 @@ const EventForm = () => {
           rules={[
             {
               required: true,
-              message: "Please introduce a country",
+              message: "Please introduce a country.",
             },
           ]}
         >
@@ -143,7 +152,7 @@ const EventForm = () => {
           rules={[
             {
               required: true,
-              message: "Please introduce a city",
+              message: "Please introduce a city.",
             },
           ]}
         >
@@ -191,14 +200,23 @@ const EventForm = () => {
             <Switch />
           </Form.Item>
           <Form.Item
-            label="Accessible"
+            label="Accessibility-Friendly"
             valuePropName="checked"
             name="isAccessibilityFriendly"
           >
             <Switch />
           </Form.Item>
         </Flex>
-        <Form.Item label="Contact info" name="contact">
+        <Form.Item
+          label="Contact info"
+          name="contact"
+          rules={[
+            {
+              required: true,
+              message: "Please introduce contact info.",
+            },
+          ]}
+        >
           <Input />
         </Form.Item>
         {/* <Form.Item label="Upload" valuePropName="fileList" getValueFromEvent={normFile}>

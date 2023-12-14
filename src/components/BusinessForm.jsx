@@ -103,7 +103,16 @@ function BusinessForm() {
         onFinish={handleUpload}
       >
         <h3>Tell the world about your business!</h3>
-        <Form.Item label="Name" name="name">
+        <Form.Item
+          label="Name"
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: "Please introduce the name of your business.",
+            },
+          ]}
+        >
           <Input placeholder="What's the name of your business?" />
         </Form.Item>
         <Form.Item
@@ -123,7 +132,7 @@ function BusinessForm() {
           rules={[
             {
               required: true,
-              message: "Please introduce a country",
+              message: "Please introduce a country.",
             },
           ]}
         >
@@ -142,7 +151,7 @@ function BusinessForm() {
           rules={[
             {
               required: true,
-              message: "Please introduce a city",
+              message: "Please introduce a city.",
             },
           ]}
         >
@@ -158,7 +167,16 @@ function BusinessForm() {
             <Select.Option value="Paris">Paris, France</Select.Option>
           </Select>
         </Form.Item> */}
-        <Form.Item label="Type of business" name="typeOfBusiness">
+        <Form.Item
+          label="Type of business"
+          name="typeOfBusiness"
+          rules={[
+            {
+              required: true,
+              message: "Please choose a type.",
+            },
+          ]}
+        >
           <Select>
             {typeOfBusinessKeys.map((key) => {
               return (
@@ -204,7 +222,7 @@ function BusinessForm() {
             <Switch />
           </Form.Item>
           <Form.Item
-            label="Accessible"
+            label="Accessibility-Friendly"
             name="isAccessibilityFriendly"
             valuePropName="checked"
           >
@@ -212,7 +230,16 @@ function BusinessForm() {
           </Form.Item>
         </Flex>
 
-        <Form.Item label="Contact info" name="contact">
+        <Form.Item
+          label="Contact info"
+          name="contact"
+          rules={[
+            {
+              required: true,
+              message: "Please introduce contact info.",
+            },
+          ]}
+        >
           <Input placeholder="example@example.com or +34 655 43 52 67" />
         </Form.Item>
 
