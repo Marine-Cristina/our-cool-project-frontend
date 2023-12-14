@@ -54,7 +54,7 @@ function AllEvents() {
                     <InfoCircleOutlined key="info" />
                   </NavLink>
                 }
-                cover={<img alt="example" src={event.photo || noPicture} />}
+                cover={<img alt="example" src={event.imageURL || noPicture} />}
               >
                 <Meta
                   title={event.nameOfTheEvent}

@@ -41,7 +41,12 @@ function DetailsBusiness() {
       loading={loading}
       hoverable
       extra={getTypeOfBusiness(businessDetails.typeOfBusiness)}
-      cover={<img alt="example" src={businessDetails.photo || noPicture} />}
+      cover={
+        <img
+          alt="example"
+          src={businessDetails.imageURL || noPicture}
+        />
+      }
       actions={[
         <NavLink to={`${APP_ROUTES.BUSINESSES}/${businessDetails._id}/edit`}>
           <EditOutlined key="edit" />

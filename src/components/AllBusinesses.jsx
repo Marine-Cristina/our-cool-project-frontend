@@ -56,7 +56,7 @@ function AllBusinesses() {
                     <InfoCircleOutlined key="info" />
                   </NavLink>
                 }
-                cover={<img alt="example" src={business.photo || noPicture} />}
+                cover={<img alt="example" src={business.imageURL || noPicture} />}
               >
                 <Meta
                   avatar={

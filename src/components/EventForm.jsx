@@ -1,12 +1,4 @@
-import {
-  Button,
-  Upload,
-  Flex,
-  Form,
-  Input,
-  InputNumber,
-  Switch,
-} from "antd";
+import { Button, Upload, Flex, Form, Input, InputNumber, Switch } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,6 +8,7 @@ import EventCard from "./EventCard";
 import CountryFilter from "./Filters/CountryFilter";
 import StateFilter from "./Filters/StateFilter";
 import { UploadOutlined } from "@ant-design/icons";
+import { useForm } from "antd/es/form/Form";
 
 const { TextArea } = Input;
 
@@ -26,6 +19,7 @@ const EventForm = () => {
   const [eventDetails, setEventDetails] = useState({});
   const isEditView = eventId !== undefined;
   const [loading, setLoading] = useState(isEditView);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     if (eventId !== undefined) {

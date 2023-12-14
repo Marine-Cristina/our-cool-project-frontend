@@ -18,8 +18,8 @@ let cloudKey = import.meta.env.CLOUD_API_KEY;
 let cloudApiSecret = import.meta.env.CLOUD_API_SECRET;
 
 function EventCard({ eventDetails, loading }) {
-  const [image, setImage] = useState(eventDetails.photo || "");
-  
+  const [image, setImage] = useState(eventDetails.imageURL || "");
+
   return (
     <Card
       style={{
@@ -29,7 +29,7 @@ function EventCard({ eventDetails, loading }) {
       loading={loading}
       hoverable
       extra={eventDetails.organizer}
-      //cover={<img alt="example" src={eventDetails.photo || noPicture} />}
+      cover={<img alt="example" src={eventDetails.imageURL || noPicture} />}
       actions={[
         <NavLink to={`${APP_ROUTES.EVENTS}/${eventDetails._id}/edit`}>
           <EditOutlined key="edit" />
@@ -47,7 +47,7 @@ function EventCard({ eventDetails, loading }) {
         style={{ marginBottom: "15px" }}
       />
 
-      <input type="file" onChange={(e) => setImgUpload(e.target.files[0])}/>
+      <input type="file" onChange={(e) => setImgUpload(e.target.files[0])} />
       <Flex gap={"middle"}>
         {eventDetails.isPetFriendly && (
           <img
