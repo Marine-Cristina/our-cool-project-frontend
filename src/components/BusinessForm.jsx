@@ -1,11 +1,13 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Form, Input, Select, Switch, Flex, Col } from "antd";
+import { Button, Form, Input, Select, Switch, Flex } from "antd";
 import { useStore } from "../context/Store";
 import { API_URL, typeOfBusinessKeys } from "../core/constants";
 import { getTypeOfBusiness } from "../utils/formatters";
 import BusinessCard from "./BusinessCard";
+import CountryFilter from "./Filters/CountryFilter";
+import StateFilter from "./Filters/StateFilter";
 
 const { TextArea } = Input;
 
@@ -16,6 +18,7 @@ function BusinessForm() {
   const [businessDetails, setBusinessDetails] = useState();
   const isEditView = businessId !== undefined;
   const [loading, setLoading] = useState(isEditView);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     if (businessId !== undefined) {
@@ -51,18 +54,22 @@ function BusinessForm() {
       });
   };
 
+  console.log({ cid: form.getFieldValue("country")?.id });
+
   return (
     <Flex gap={"middle"}>
       <BusinessCard businessDetails={businessDetails} loading={loading} />
 
       <Form
+        form={form}
         layout="vertical"
         style={{ maxWidth: 600 }}
         initialValues={
           businessDetails === undefined
             ? {
                 name: "",
-                location: "",
+                country: {},
+                state: {},
                 coordinates: [],
                 typeOfBusiness: "",
                 description: "",
@@ -85,13 +92,47 @@ function BusinessForm() {
           <Input placeholder="What's the name of your business?" />
         </Form.Item>
 
-        <Form.Item label="Location" name="location">
+        <Form.Item
+          label="Country"
+          name="country"
+          rules={[
+            {
+              required: true,
+              message: "Please introduce a country",
+            },
+          ]}
+        >
+          <CountryFilter
+            value={
+              form.getFieldValue("country")
+                ? form.getFieldValue("country").iso2
+                : undefined
+            }
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="City"
+          name="state"
+          rules={[
+            {
+              required: true,
+              message: "Please introduce a city",
+            },
+          ]}
+        >
+          <StateFilter
+            value={form.getFieldValue("state")}
+            countryId={form.getFieldValue("country")?.listIdx}
+          />
+        </Form.Item>
+
+        {/* <Form.Item label="Location" name="location">
           <Select>
             <Select.Option value="Burgos">Burgos, Spain</Select.Option>
             <Select.Option value="Paris">Paris, France</Select.Option>
           </Select>
-        </Form.Item>
-
+        </Form.Item> */}
         <Form.Item label="Type of business" name="typeOfBusiness">
           <Select>
             {typeOfBusinessKeys.map((key) => {
