@@ -32,7 +32,11 @@ function EventCard({ eventDetails, loading }) {
     >
       <Meta
         title={eventDetails.name}
-        description={eventDetails.location}
+        description={
+          eventDetails.state?.name && eventDetails.country?.name
+            ? `${eventDetails.state.name}, ${eventDetails.country.name}`
+            : ""
+        }
         style={{ marginBottom: "15px" }}
       />
 

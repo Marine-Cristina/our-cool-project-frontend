@@ -1,8 +1,8 @@
 import { Flex } from "antd";
 import { useNavigate } from "react-router-dom";
-import MainFilter from "../components/MainFilters";
 import { APP_ROUTES } from "../core/constants";
 import Header from "/headerimage.png";
+import MainFilters from "../components/Filters/MainFilters";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ function HomePage() {
         <img src={Header} alt="Spherendly header image" />
       </Flex>
 
-      <MainFilter onSearch={handleSearch} />
+      <MainFilters onSearch={handleSearch} />
     </>
   );
 }

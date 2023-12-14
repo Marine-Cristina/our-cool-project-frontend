@@ -5,15 +5,16 @@ import {
   Form,
   Input,
   InputNumber,
-  Select,
   Switch,
 } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "../context/Store";
 import { API_URL } from "../core/constants";
 import EventCard from "./EventCard";
+import CountryFilter from "./Filters/CountryFilter";
+import StateFilter from "./Filters/StateFilter";
 
 const { TextArea } = Input;
 
@@ -24,6 +25,7 @@ const EventForm = () => {
   const [eventDetails, setEventDetails] = useState({});
   const isEditView = eventId !== undefined;
   const [loading, setLoading] = useState(isEditView);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     if (eventId !== undefined) {
@@ -47,6 +49,8 @@ const EventForm = () => {
   const handleSubmit = (formValues) => {
     const eventPayload = { ...formValues };
 
+    debugger;
+
     axios
       .post(`${API_URL}/events`, eventPayload, {
         headers: { authorization: `Bearer ${authToken}` },
@@ -64,13 +68,15 @@ const EventForm = () => {
       <EventCard eventDetails={eventDetails} loading={loading} />
 
       <Form
+        form={form}
         layout="vertical"
         style={{ maxWidth: 600 }}
         initialValues={
           eventDetails === undefined
             ? {
-                nameOfTheEvent: "",
-                location: "",
+                name: "",
+                country: {},
+                state: {},
                 coordinates: [],
                 date: "",
                 price: 0,
@@ -90,17 +96,45 @@ const EventForm = () => {
         onFinish={handleSubmit}
       >
         <h3>Tell the world about your event!</h3>
-        <Form.Item label="Name" name="nameOfTheEvent">
+        <Form.Item label="Name" name="name">
           <Input placeholder="What's the name of your event?" />
         </Form.Item>
         <Form.Item label="Organizer" name="organizer">
           <Input value="Change this for business.name" disabled />
         </Form.Item>
-        <Form.Item label="Location" name="location">
-          <Select>
-            <Select.Option value="Burgos">Burgos, Spain</Select.Option>
-            <Select.Option value="Paris">Paris, France</Select.Option>
-          </Select>
+        <Form.Item
+          label="Country"
+          name="country"
+          rules={[
+            {
+              required: true,
+              message: "Please introduce a country",
+            },
+          ]}
+        >
+          <CountryFilter
+            value={
+              form.getFieldValue("country")
+                ? form.getFieldValue("country").iso2
+                : undefined
+            }
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="City"
+          name="state"
+          rules={[
+            {
+              required: true,
+              message: "Please introduce a city",
+            },
+          ]}
+        >
+          <StateFilter
+            value={form.getFieldValue("state")}
+            countryId={form.getFieldValue("country")?.listIdx}
+          />
         </Form.Item>
         <Form.Item label="Date" name="date">
           <Date />
