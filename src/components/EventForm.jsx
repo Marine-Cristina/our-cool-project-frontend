@@ -1,6 +1,6 @@
 import {
   Button,
-  // Upload,
+  Upload,
   Flex,
   Form,
   Input,
@@ -14,6 +14,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "../context/Store";
 import { API_URL } from "../core/constants";
 import EventCard from "./EventCard";
+import { UploadOutlined } from "@ant-design/icons";
 
 const { TextArea } = Input;
 
@@ -24,6 +25,7 @@ const EventForm = () => {
   const [eventDetails, setEventDetails] = useState({});
   const isEditView = eventId !== undefined;
   const [loading, setLoading] = useState(isEditView);
+  const [imgUpload, setImgUpload] = useState(null);
 
   useEffect(() => {
     if (eventId !== undefined) {
@@ -44,8 +46,21 @@ const EventForm = () => {
     return "Loading";
   }
 
-  const handleSubmit = (formValues) => {
-    const eventPayload = { ...formValues };
+  const handleUpload = async (formValues) => {
+    console.log(formValues);
+    try {
+      const formData = new FormData();
+      formData.append("imageUrl", formValues.upload.fileList[0].originFileObj);
+      const image = await axios.post(`${API_URL}/events/upload`, formData);
+      console.log("image", image);
+      handleSubmit(image.data.fileUrl, formValues);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = async (image, formValues) => {
+    const eventPayload = { ...formValues, imageURL: image };
 
     axios
       .post(`${API_URL}/events`, eventPayload, {
@@ -81,17 +96,28 @@ const EventForm = () => {
                 isAccessibilityFriendly: false,
                 isVeganFriendly: false,
                 contact: "",
+                imageURL: "",
               }
             : { ...eventDetails }
         }
         onValuesChange={(changedValues, allValues) => {
           setEventDetails(allValues);
         }}
-        onFinish={handleSubmit}
+        onFinish={handleUpload}
       >
         <h3>Tell the world about your event!</h3>
         <Form.Item label="Name" name="nameOfTheEvent">
           <Input placeholder="What's the name of your event?" />
+        </Form.Item>
+        <Form.Item
+          name="upload"
+          label="Upload"
+          valuePropName="im"
+          extra="longgggggggggggggggggggggggggggggggggg"
+        >
+          <Upload name="logo" action="/upload.do" listType="picture">
+            <Button icon={<UploadOutlined />}>Click to upload</Button>
+          </Upload>
         </Form.Item>
         <Form.Item label="Organizer" name="organizer">
           <Input value="Change this for business.name" disabled />
