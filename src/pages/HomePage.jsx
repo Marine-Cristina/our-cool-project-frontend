@@ -1,29 +1,21 @@
-import React from "react";
-import { Flex, Select } from "antd";
+import { Flex } from "antd";
 import { useNavigate } from "react-router-dom";
+import MainFilter from "../components/MainFilters";
+import { APP_ROUTES } from "../core/constants";
 import Header from "/headerimage.png";
-
-
-
-const { Option } = Select;
 
 function HomePage() {
   const navigate = useNavigate();
 
-  function handleChange(value) {
-    console.log(`selected ${value}`);
-    if (value === "Paris") {
-      navigate("/businesses/paris");
-    }
-  }
+  const handleSearch = (filters) => {
+    const countryCode = filters.country.iso2;
+    const stateCode = filters.state.state_code;
+    const friendlyValue = filters.friendlyList.join(",");
 
-  function handleBlur() {
-    console.log("blur");
-  }
-
-  function handleFocus() {
-    console.log("focus");
-  }
+    navigate(
+      `${APP_ROUTES.BUSINESSES}/?country=${countryCode}&city=${stateCode}&friendly=${friendlyValue}`
+    );
+  };
 
   return (
     <>
@@ -31,7 +23,7 @@ function HomePage() {
         gap={90}
         justify="center"
         align="center"
-        className = "homepage-header"
+        className="homepage-header"
         style={{ width: "100%", margin: "10px" }}
       >
         <Flex vertical="true" align="center" gap={1}>
@@ -44,35 +36,7 @@ function HomePage() {
         <img src={Header} alt="Spherendly header image" />
       </Flex>
 
-      <Flex
-        vertical="true"
-        justify="center"
-        align="center"
-        style={{
-          backgroundColor: "#9bccd082",
-          marginTop: "6%",
-          color: "white",
-          height: "20%",
-        }}
-      >
-        <h2>Where do you want to explore?</h2>
-        <Select
-          showSearch
-          style={{ width: 200 }}
-          placeholder="Select a person"
-          optionFilterProp="children"
-          onChange={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          filterOption={(input, option) =>
-            option.props.children.toLowerCase().indexOf(input.toLowerCase()) >=
-            0
-          }
-        >
-          <Option value="Burgos">Burgos, Spain</Option>
-          <Option value="Paris">Paris, France</Option>
-        </Select>
-      </Flex>
+      <MainFilter onSearch={handleSearch} />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Card, Flex } from "antd";
 import Meta from "antd/es/card/Meta";
 import React from "react";
@@ -13,7 +13,9 @@ import noPicture from "/no-picture.png";
 import pet from "/pet.png";
 import vegan from "/vegan.png";
 
-function BusinessCard({ businessDetails, loading }) {
+function BusinessCard({ businessDetails = {}, loading, currentUserId }) {
+  const isCurrentUserOwner = true;
+
   return (
     <Card
       style={{
@@ -25,10 +27,16 @@ function BusinessCard({ businessDetails, loading }) {
       extra={getTypeOfBusiness(businessDetails.typeOfBusiness)}
       cover={<img alt="example" src={businessDetails.photo || noPicture} />}
       actions={[
-        <NavLink to={`${APP_ROUTES.BUSINESSES}/${businessDetails._id}/edit`}>
-          <EditOutlined key="edit" />
-        </NavLink>,
-        <DeleteBusiness businessId={businessDetails._id} />,
+        isCurrentUserOwner && (
+          <NavLink to={`${APP_ROUTES.BUSINESSES}/${businessDetails._id}/edit`}>
+            <EditOutlined key="edit" />
+          </NavLink>
+        ),
+        isCurrentUserOwner && (
+          <DeleteBusiness businessId={businessDetails._id}>
+            <DeleteOutlined key="delete" />
+          </DeleteBusiness>
+        ),
       ]}
     >
       <Meta

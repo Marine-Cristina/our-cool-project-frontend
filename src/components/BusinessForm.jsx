@@ -47,7 +47,7 @@ function BusinessForm() {
         navigate(`/businesses/${response.data._id}`);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error during form submission:", error);
       });
   };
 
