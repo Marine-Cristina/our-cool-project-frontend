@@ -70,7 +70,6 @@ function AllBusinesses() {
                   description={
                     <div>
                       {getTypeOfBusiness(business.typeOfBusiness)} &nbsp;|&nbsp;{" "}
-                      {business.location}
                     </div>
                   }
                   style={{ marginBottom: "15px" }}
