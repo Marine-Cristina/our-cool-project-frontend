@@ -13,8 +13,8 @@ import { APP_ROUTES } from "./core/constants";
 import Store from "./context/Store";
 import NotFoundPage from "./pages/NotFoundPage";
 import EditBusinessPage from "./pages/EditBusinessPage";
-import IsPrivate from "./components/isPrivate";
 import EditEventPage from "./pages/EditEventPage";
+import IsPrivate from "./components/IsPrivate";
 
 function App() {
   return (
