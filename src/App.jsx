@@ -15,6 +15,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import EditBusinessPage from "./pages/EditBusinessPage";
 import EditEventPage from "./pages/EditEventPage";
 import IsPrivate from "./components/IsPrivate";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
@@ -79,6 +80,8 @@ function App() {
                 </IsPrivate>
               }
             />
+
+            <Route path={APP_ROUTES.ABOUT} element={<AboutPage />} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

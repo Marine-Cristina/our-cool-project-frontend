@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import OrgLogo from "/orglogo.png";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -19,7 +20,7 @@ import {
   Flex,
 } from "antd";
 import Logo from "/logo.png";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../../core/constants";
 import { useStore } from "../../context/Store";
 import UserMenu from "../UserMenu/UserMenu";
@@ -51,7 +52,9 @@ const Layout = ({ children }) => {
             justify="center"
             style={{ margin: "10px" }}
           >
-            <Image height={40} src={Logo} />
+            <NavLink to={`${APP_ROUTES.ABOUT}`}>
+              <Image preview={false} height={40} src={Logo} />
+            </NavLink>
             {!collapsed && (
               <Typography.Title
                 level={1}
@@ -163,9 +166,20 @@ const Layout = ({ children }) => {
           <Footer
             style={{
               textAlign: "center",
+
+              padding: "0px",
             }}
           >
             Spherendly © 2023 Created by Marine & Cristina
+            <NavLink to={`${APP_ROUTES.ABOUT}`}>
+              <Image
+                preview={false}
+                src={OrgLogo}
+                alt="organisation logo"
+                height={"60px"}
+                width={"60px"}
+              />
+            </NavLink>
           </Footer>
         </AntLayout>
       </AntLayout>
