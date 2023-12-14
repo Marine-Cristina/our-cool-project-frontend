@@ -113,6 +113,9 @@ h3 {
     align-items: center;
     width: 100%;
   }
+  .ant-card {
+    display: block !important;
+  }
 }
 /* Medium screen */
 @media (min-width: 577px) and (max-width: 992px) {

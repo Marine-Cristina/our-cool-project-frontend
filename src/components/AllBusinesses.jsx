@@ -48,6 +48,7 @@ function AllBusinesses() {
                 style={{
                   width: 350,
                   marginBottom: "25px",
+                  heigth: "100%",
                 }}
                 loading={loading}
                 hoverable
@@ -56,7 +57,13 @@ function AllBusinesses() {
                     <InfoCircleOutlined key="info" />
                   </NavLink>
                 }
-                cover={<img alt="example" src={business.imageURL || noPicture} />}
+                cover={
+                  <img
+                    style={{ height: "300px", objectFit: "cover" }}
+                    alt="example"
+                    src={business.imageURL || noPicture}
+                  />
+                }
               >
                 <Meta
                   avatar={

@@ -46,6 +46,7 @@ function AllEvents() {
                 style={{
                   width: 350,
                   marginBottom: "25px",
+                  heigth: "100%",
                 }}
                 loading={loading}
                 hoverable
@@ -54,7 +55,13 @@ function AllEvents() {
                     <InfoCircleOutlined key="info" />
                   </NavLink>
                 }
-                cover={<img alt="example" src={event.imageURL || noPicture} />}
+                cover={
+                  <img
+                    style={{ height: "300px", objectFit: "cover" }}
+                    alt="example"
+                    src={event.imageURL || noPicture}
+                  />
+                }
               >
                 <Meta
                   title={event.nameOfTheEvent}
