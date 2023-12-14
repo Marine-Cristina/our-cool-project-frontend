@@ -1,7 +1,7 @@
 import { EditOutlined } from "@ant-design/icons";
 import { Card, Flex } from "antd";
 import Meta from "antd/es/card/Meta";
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import DeleteEvent from "./Delete/DeleteEvent";
 import { APP_ROUTES } from "../core/constants";
@@ -11,8 +11,15 @@ import eco from "/eco.png";
 import noPicture from "/no-picture.png";
 import pet from "/pet.png";
 import vegan from "/vegan.png";
+import { Image } from "cloudinary-react";
+
+let cloudName = import.meta.env.CLOUD_NAME;
+let cloudKey = import.meta.env.CLOUD_API_KEY;
+let cloudApiSecret = import.meta.env.CLOUD_API_SECRET;
 
 function EventCard({ eventDetails, loading }) {
+  const [image, setImage] = useState(eventDetails.imageURL || "");
+
   return (
     <Card
       style={{
@@ -22,7 +29,7 @@ function EventCard({ eventDetails, loading }) {
       loading={loading}
       hoverable
       extra={eventDetails.organizer}
-      cover={<img alt="example" src={eventDetails.photo || noPicture} />}
+      cover={<img alt="example" src={eventDetails.imageURL || noPicture} />}
       actions={[
         <NavLink to={`${APP_ROUTES.EVENTS}/${eventDetails._id}/edit`}>
           <EditOutlined key="edit" />
@@ -40,6 +47,7 @@ function EventCard({ eventDetails, loading }) {
         style={{ marginBottom: "15px" }}
       />
 
+      <input type="file" onChange={(e) => setImgUpload(e.target.files[0])} />
       <Flex gap={"middle"}>
         {eventDetails.isPetFriendly && (
           <img

@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Form, Input, Select, Switch, Flex } from "antd";
+import { Button, Upload, Form, Input, Select, Switch, Flex } from "antd";
 import { useStore } from "../context/Store";
 import { API_URL, typeOfBusinessKeys } from "../core/constants";
 import { getTypeOfBusiness } from "../utils/formatters";
 import BusinessCard from "./BusinessCard";
 import CountryFilter from "./Filters/CountryFilter";
 import StateFilter from "./Filters/StateFilter";
+import { UploadOutlined } from "@ant-design/icons";
 
 const { TextArea } = Input;
 
@@ -39,8 +40,21 @@ function BusinessForm() {
     return "Loading";
   }
 
-  const handleSubmit = (formValues) => {
-    const businessPayload = { ...formValues };
+  const handleUpload = async (formValues) => {
+    console.log(formValues);
+    try {
+      const formData = new FormData();
+      formData.append("imageUrl", formValues.upload.fileList[0].originFileObj);
+      const image = await axios.post(`${API_URL}/businesses/upload`, formData);
+      console.log("image", image);
+      handleSubmit(image.data.fileUrl, formValues);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = (image, formValues) => {
+    const businessPayload = { ...formValues, imageURL: image };
 
     axios
       .post(`${API_URL}/businesses`, businessPayload, {
@@ -79,13 +93,14 @@ function BusinessForm() {
                 isAccessibilityFriendly: false,
                 isVeganFriendly: false,
                 contact: "",
+                imageURL: "",
               }
             : { ...businessDetails }
         }
         onValuesChange={(changedValues, allValues) => {
           setBusinessDetails(allValues);
         }}
-        onFinish={handleSubmit}
+        onFinish={handleUpload}
       >
         <h3>Tell the world about your business!</h3>
         <Form.Item
@@ -99,6 +114,16 @@ function BusinessForm() {
           ]}
         >
           <Input placeholder="What's the name of your business?" />
+        </Form.Item>
+        <Form.Item
+          name="upload"
+          label="Upload"
+          valuePropName="im"
+          extra="longgggggggggggggggggggggggggggggggggg"
+        >
+          <Upload name="logo" action="/upload.do" listType="picture">
+            <Button icon={<UploadOutlined />}>Click to upload</Button>
+          </Upload>
         </Form.Item>
 
         <Form.Item

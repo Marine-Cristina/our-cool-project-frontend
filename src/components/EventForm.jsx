@@ -1,12 +1,4 @@
-import {
-  Button,
-  // Upload,
-  Flex,
-  Form,
-  Input,
-  InputNumber,
-  Switch,
-} from "antd";
+import { Button, Upload, Flex, Form, Input, InputNumber, Switch } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,6 +7,8 @@ import { API_URL } from "../core/constants";
 import EventCard from "./EventCard";
 import CountryFilter from "./Filters/CountryFilter";
 import StateFilter from "./Filters/StateFilter";
+import { UploadOutlined } from "@ant-design/icons";
+import { useForm } from "antd/es/form/Form";
 
 const { TextArea } = Input;
 
@@ -46,10 +40,21 @@ const EventForm = () => {
     return "Loading";
   }
 
-  const handleSubmit = (formValues) => {
-    const eventPayload = { ...formValues };
+  const handleUpload = async (formValues) => {
+    console.log(formValues);
+    try {
+      const formData = new FormData();
+      formData.append("imageUrl", formValues.upload.fileList[0].originFileObj);
+      const image = await axios.post(`${API_URL}/events/upload`, formData);
+      console.log("image", image);
+      handleSubmit(image.data.fileUrl, formValues);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    debugger;
+  const handleSubmit = async (image, formValues) => {
+    const eventPayload = { ...formValues, imageURL: image };
 
     axios
       .post(`${API_URL}/events`, eventPayload, {
@@ -87,13 +92,14 @@ const EventForm = () => {
                 isAccessibilityFriendly: false,
                 isVeganFriendly: false,
                 contact: "",
+                imageURL: "",
               }
             : { ...eventDetails }
         }
         onValuesChange={(changedValues, allValues) => {
           setEventDetails(allValues);
         }}
-        onFinish={handleSubmit}
+        onFinish={handleUpload}
       >
         <h3>Tell the world about your event!</h3>
         <Form.Item
@@ -107,6 +113,16 @@ const EventForm = () => {
           ]}
         >
           <Input placeholder="What's the name of your event?" />
+        </Form.Item>
+        <Form.Item
+          name="upload"
+          label="Upload"
+          valuePropName="im"
+          extra="longgggggggggggggggggggggggggggggggggg"
+        >
+          <Upload name="logo" action="/upload.do" listType="picture">
+            <Button icon={<UploadOutlined />}>Click to upload</Button>
+          </Upload>
         </Form.Item>
         <Form.Item label="Organizer" name="organizer">
           <Input value="Change this for business.name" disabled />
