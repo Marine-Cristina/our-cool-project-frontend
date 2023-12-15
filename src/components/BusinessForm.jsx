@@ -17,6 +17,8 @@ function BusinessForm() {
   const { authToken } = useStore();
   const { businessId } = useParams();
   const [businessDetails, setBusinessDetails] = useState();
+  const [selectedCountry, setSelectedCountry] = useState();
+  const [selectedState, setSelectedState] = useState();
   const isEditView = businessId !== undefined;
   const [loading, setLoading] = useState(isEditView);
   const [form] = Form.useForm();
@@ -27,6 +29,8 @@ function BusinessForm() {
         .get(`${API_URL}/businesses/${businessId}`)
         .then((response) => {
           setBusinessDetails(response.data);
+          setSelectedCountry(response.data.country);
+          setSelectedState(response.data.state);
           setLoading(false);
         })
         .catch((error) => {
@@ -62,7 +66,12 @@ function BusinessForm() {
   };
 
   const handleSubmit = (image, formValues) => {
-    const businessPayload = { ...formValues, imageURL: image };
+    const businessPayload = {
+      ...formValues,
+      imageURL: image,
+      country: selectedCountry,
+      state: selectedState,
+    };
 
     axios
       .post(`${API_URL}/businesses`, businessPayload, {
@@ -76,8 +85,6 @@ function BusinessForm() {
       });
   };
 
-  console.log({ cid: form.getFieldValue("country")?.id });
-
   return (
     <Flex gap={"middle"} className="edit-view">
       <Form
@@ -88,8 +95,8 @@ function BusinessForm() {
           businessDetails === undefined
             ? {
                 name: "",
-                country: {},
-                state: {},
+                country: "",
+                state: "",
                 coordinates: [],
                 typeOfBusiness: "",
                 description: "",
@@ -101,11 +108,12 @@ function BusinessForm() {
                 contact: "",
                 imageURL: "",
               }
-            : { ...businessDetails }
+            : {
+                ...businessDetails,
+                country: businessDetails.country.iso2,
+                state: businessDetails.state.state_code,
+              }
         }
-        onValuesChange={(changedValues, allValues) => {
-          setBusinessDetails(allValues);
-        }}
         onFinish={handleUpload}
       >
         <h3>Tell the world about your business!</h3>
@@ -121,6 +129,7 @@ function BusinessForm() {
         >
           <Input placeholder="What's the name of your business?" />
         </Form.Item>
+
         <Form.Item
           name="upload"
           label="Upload"
@@ -138,16 +147,27 @@ function BusinessForm() {
           rules={[
             {
               required: true,
-              message: "Please introduce a country.",
+              message: "Please introduce a country",
             },
           ]}
         >
           <CountryFilter
-            value={
-              form.getFieldValue("country")
-                ? form.getFieldValue("country").iso2
-                : undefined
-            }
+            onChange={(value, option) => {
+              const country = option?.raw;
+
+              if (country) {
+                setSelectedCountry({
+                  listIdx: country.id,
+                  name: country.name,
+                  iso2: country.iso2,
+                });
+              } else {
+                setSelectedCountry();
+              }
+            }}
+            onClear={() => {
+              setSelectedCountry();
+            }}
           />
         </Form.Item>
 
@@ -157,22 +177,29 @@ function BusinessForm() {
           rules={[
             {
               required: true,
-              message: "Please introduce a city.",
+              message: "Please introduce a city",
             },
           ]}
         >
           <StateFilter
-            value={form.getFieldValue("state")}
-            countryId={form.getFieldValue("country")?.listIdx}
+            countryId={selectedCountry?.listIdx}
+            onChange={(value, option) => {
+              const state = option?.raw;
+
+              if (state) {
+                setSelectedState({
+                  name: state.name,
+                  state_code: state.state_code,
+                });
+              } else {
+                setSelectedState();
+              }
+            }}
+            onClear={() => {
+              setSelectedState();
+            }}
           />
         </Form.Item>
-
-        {/* <Form.Item label="Location" name="location">
-          <Select>
-            <Select.Option value="Burgos">Burgos, Spain</Select.Option>
-            <Select.Option value="Paris">Paris, France</Select.Option>
-          </Select>
-        </Form.Item> */}
         <Form.Item
           label="Type of business"
           name="typeOfBusiness"
@@ -253,7 +280,14 @@ function BusinessForm() {
           <Button htmlType="Submit">Publish Business</Button>
         </Form.Item>
       </Form>
-      <BusinessCard businessDetails={businessDetails} loading={loading} />
+      <BusinessCard
+        businessDetails={{
+          ...businessDetails,
+          country: selectedCountry,
+          state: selectedState,
+        }}
+        loading={loading}
+      />
     </Flex>
   );
 }

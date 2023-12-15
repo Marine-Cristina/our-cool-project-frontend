@@ -8,13 +8,35 @@ function HomePage() {
   const navigate = useNavigate();
 
   const handleSearch = (filters) => {
-    const countryCode = filters.country.iso2;
-    const stateCode = filters.state.state_code;
+    const countryCode = filters.country?.iso2;
+    const stateCode = filters.state?.state_code;
     const friendlyValue = filters.friendlyList.join(",");
 
-    navigate(
-      `${APP_ROUTES.BUSINESSES}/?country=${countryCode}&city=${stateCode}&friendly=${friendlyValue}`
-    );
+    if (!countryCode && !stateCode && friendlyValue.length === 0) {
+      navigate(`${APP_ROUTES.BUSINESSES}/`);
+    } else {
+      let queryParamsString = "";
+
+      if (countryCode) {
+        queryParamsString = `country=${countryCode}`;
+      }
+
+      if (stateCode) {
+        queryParamsString = `${
+          queryParamsString ? `${queryParamsString}&` : ""
+        }state=${stateCode}`;
+      }
+
+      if (friendlyValue) {
+        queryParamsString = `${
+          queryParamsString !== "" ? `&${queryParamsString}&` : ""
+        }friendlyType=${friendlyValue}`;
+      }
+
+      queryParamsString = queryParamsString && `?${queryParamsString}`;
+
+      navigate(`${APP_ROUTES.BUSINESSES}/${queryParamsString}`);
+    }
   };
 
   return (

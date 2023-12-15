@@ -43,7 +43,11 @@ function BusinessCard({ businessDetails = {}, loading }) {
     >
       <Meta
         title={businessDetails.name}
-        description={businessDetails.location}
+        description={
+          businessDetails.state?.name && businessDetails.country?.name
+            ? `${businessDetails.state.name}, ${businessDetails.country.name}`
+            : ""
+        }
         style={{ marginBottom: "15px" }}
       />
 

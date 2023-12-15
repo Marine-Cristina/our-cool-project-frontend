@@ -2,13 +2,10 @@ import { Select } from "antd";
 import { useEffect, useState } from "react";
 import { GetState } from "react-country-state-city";
 
-const { Option } = Select;
-
-export function StateFilter({ onChange, value, countryId }) {
+export function StateFilter({ onChange, value, onClear, countryId }) {
   const [stateList, setStateList] = useState([]);
-  const stateIdx = stateList.findIndex(
-    (state) => state.state_code === value?.state_code
-  );
+
+  console.log({ countryId });
 
   useEffect(() => {
     if (!countryId) {
@@ -26,30 +23,21 @@ export function StateFilter({ onChange, value, countryId }) {
     return label.toLowerCase().includes(input.toLowerCase());
   };
 
-  const handleStateChange = (value) => {
-    const selectedState = stateList[value];
-    onChange({
-      state_code: selectedState.state_code,
-      name: selectedState.name,
-    });
-  };
-
   return (
     <Select
       showSearch
       placeholder="Select city"
-      onChange={handleStateChange}
+      onChange={onChange}
+      onClear={onClear}
       filterOption={filterOption}
-      value={stateIdx === -1 ? undefined : stateIdx}
+      value={value}
       allowClear
-    >
-      {stateList.map((state, index) => (
-        <Option
-          key={`country-${index}`}
-          value={index}
-        >{`${state.name}`}</Option>
-      ))}
-    </Select>
+      options={stateList.map((state) => ({
+        label: state.name,
+        value: state.state_code,
+        raw: state,
+      }))}
+    />
   );
 }
 

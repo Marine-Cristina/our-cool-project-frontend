@@ -6,43 +6,107 @@ import StateFilter from "./StateFilter";
 
 const { Option } = Select;
 
-export function MainFilters({ onSearch }) {
+export function MainFilters({
+  onSearch,
+  defaultCountryCode,
+  defaultStateCode,
+  defaultFriendlyType,
+}) {
   const [selectedCountry, setSelectedCountry] = useState();
   const [selectedState, setSelectedState] = useState();
-  const [friendlyType, setFriendlyType] = useState([]);
+  const [friendlyType, setFriendlyType] = useState(defaultFriendlyType || []);
+  const [form] = Form.useForm();
 
   const handleFinish = () => {
-    const friendlyList = friendlyType;
-
-    onSearch({ country: selectedCountry, state: selectedState, friendlyList });
+    debugger;
+    onSearch({
+      country: selectedCountry,
+      state: selectedState,
+      friendlyList: friendlyType,
+    });
   };
 
+  useEffect(() => {
+    if (defaultCountryCode) {
+      GetCountries()
+        .then((countries) => {
+          const selected = countries.find(
+            (country) => country.iso2 === defaultCountryCode
+          );
+
+          setSelectedCountry({
+            listIdx: selected.id,
+            name: selected.name,
+            iso2: selected.iso2,
+          });
+
+          if (defaultStateCode && selected) {
+            return GetState(selected.id);
+          }
+        })
+        .then((states) => {
+          const selected = states.find(
+            (state) => state.state_code === defaultStateCode
+          );
+          setSelectedState({
+            name: selected.name,
+            state_code: selected.state_code,
+          });
+        });
+    }
+  }, [defaultCountryCode, defaultStateCode]);
+
   return (
-    <Form name="mainFilter" layout="inline" onFinish={handleFinish}>
-      <Form.Item
-        name="countryIdx"
-        label="Country"
-        rules={[{ required: true, message: "Country is required" }]}
-      >
+    <Form
+      form={form}
+      name="mainFilter"
+      layout="inline"
+      onFinish={handleFinish}
+      initialValues={{
+        countryCode: defaultCountryCode,
+        state: defaultStateCode,
+        friendlyType: friendlyType,
+      }}
+    >
+      <Form.Item name="countryCode" label="Country">
         <CountryFilter
-          onChange={(selectedCountry) => {
-            setSelectedCountry(selectedCountry);
+          onChange={(value, option) => {
+            const country = option?.raw;
+
+            if (country) {
+              setSelectedCountry({
+                listIdx: country.id,
+                name: country.name,
+                iso2: country.iso2,
+              });
+            } else {
+              setSelectedCountry();
+            }
           }}
-          value={selectedCountry ? selectedCountry.iso2 : undefined}
+          onClear={() => {
+            setSelectedCountry();
+          }}
         />
       </Form.Item>
 
-      <Form.Item
-        name="state"
-        label="City"
-        rules={[{ required: true, message: "City is required" }]}
-      >
+      <Form.Item name="state" label="City">
         <StateFilter
-          value={selectedState}
-          onChange={(value) => {
-            setSelectedState(value);
+          onChange={(value, option) => {
+            const state = option?.raw;
+
+            if (state) {
+              setSelectedState({
+                name: state.name,
+                state_code: state.state_code,
+              });
+            } else {
+              setSelectedState();
+            }
           }}
-          countryId={selectedCountry ? selectedCountry.listIdx : undefined}
+          onClear={() => {
+            setSelectedState();
+          }}
+          countryId={selectedCountry?.listIdx}
         />
       </Form.Item>
 
@@ -54,6 +118,7 @@ export function MainFilters({ onSearch }) {
           onChange={(value) => {
             setFriendlyType(value);
           }}
+          value={friendlyType}
           allowClear
         >
           <Option key="isPetFriendly" value="isPetFriendly">

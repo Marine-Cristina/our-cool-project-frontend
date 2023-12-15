@@ -17,6 +17,8 @@ const EventForm = () => {
   const { authToken } = useStore();
   const { eventId } = useParams();
   const [eventDetails, setEventDetails] = useState({});
+  const [selectedCountry, setSelectedCountry] = useState();
+  const [selectedState, setSelectedState] = useState();
   const isEditView = eventId !== undefined;
   const [loading, setLoading] = useState(isEditView);
   const [form] = Form.useForm();
@@ -60,7 +62,12 @@ const EventForm = () => {
   };
 
   const handleSubmit = async (image, formValues) => {
-    const eventPayload = { ...formValues, imageURL: image };
+    const eventPayload = {
+      ...formValues,
+      imageURL: image,
+      country: selectedCountry,
+      state: selectedState,
+    };
 
     axios
       .post(`${API_URL}/events`, eventPayload, {
@@ -84,8 +91,8 @@ const EventForm = () => {
           eventDetails === undefined
             ? {
                 name: "",
-                country: {},
-                state: {},
+                country: "",
+                state: "",
                 coordinates: [],
                 date: "",
                 price: 0,
@@ -98,11 +105,12 @@ const EventForm = () => {
                 contact: "",
                 imageURL: "",
               }
-            : { ...eventDetails }
+            : {
+                ...eventDetails,
+                country: eventDetails.country.iso2,
+                state: eventDetails.state.state_code,
+              }
         }
-        onValuesChange={(changedValues, allValues) => {
-          setEventDetails(allValues);
-        }}
         onFinish={handleUpload}
       >
         <h3>Tell the world about your event!</h3>
@@ -137,16 +145,27 @@ const EventForm = () => {
           rules={[
             {
               required: true,
-              message: "Please introduce a country.",
+              message: "Please introduce a country",
             },
           ]}
         >
           <CountryFilter
-            value={
-              form.getFieldValue("country")
-                ? form.getFieldValue("country").iso2
-                : undefined
-            }
+            onChange={(value, option) => {
+              const country = option?.raw;
+
+              if (country) {
+                setSelectedCountry({
+                  listIdx: country.id,
+                  name: country.name,
+                  iso2: country.iso2,
+                });
+              } else {
+                setSelectedCountry();
+              }
+            }}
+            onClear={() => {
+              setSelectedCountry();
+            }}
           />
         </Form.Item>
 
@@ -156,13 +175,28 @@ const EventForm = () => {
           rules={[
             {
               required: true,
-              message: "Please introduce a city.",
+              message: "Please introduce a city",
             },
           ]}
         >
           <StateFilter
-            value={form.getFieldValue("state")}
-            countryId={form.getFieldValue("country")?.listIdx}
+            countryId={selectedCountry?.listIdx}
+            onChange={(value, option) => {
+              const state = option?.raw;
+
+              if (state) {
+                setSelectedState({
+                  name: state.name,
+                  state_code: state.state_code,
+                });
+              } else {
+                setSelectedState();
+              }
+            }}
+            onClear={() => {
+              setSelectedState();
+            }}
+            value={selectedState}
           />
         </Form.Item>
         <Form.Item label="Date" name="date">
@@ -237,7 +271,14 @@ const EventForm = () => {
           </Button>
         </Form.Item>
       </Form>
-      <EventCard eventDetails={eventDetails} loading={loading} />
+      <EventCard
+        eventDetails={{
+          ...eventDetails,
+          country: selectedCountry,
+          state: selectedState,
+        }}
+        loading={loading}
+      />
     </Flex>
   );
 };
