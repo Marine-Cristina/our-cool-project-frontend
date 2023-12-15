@@ -110,6 +110,9 @@ const EventForm = () => {
                 // state: eventDetails.state.state_code,
               }
         }
+        onValuesChange={(changedValues, allValues) => {
+          setEventDetails(allValues);
+        }}
         onFinish={handleUpload}
       >
         <h3>Tell the world about your event!</h3>

@@ -19,7 +19,6 @@ const Login = ({ onCancel }) => {
       .then((response) => {
         console.log(response);
         updateAuthToken(response.data.authToken);
-        debugger;
         updateUser(response.data.user);
         setError(false);
         onCancel();

@@ -114,6 +114,9 @@ function BusinessForm() {
                 state: businessDetails.state.state_code,
               }
         }
+        onValuesChange={(changedValues, allValues) => {
+          setBusinessDetails(allValues);
+        }}
         onFinish={handleUpload}
       >
         <h3>Tell the world about your business!</h3>

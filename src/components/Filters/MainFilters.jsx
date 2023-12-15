@@ -18,7 +18,6 @@ export function MainFilters({
   const [form] = Form.useForm();
 
   const handleFinish = () => {
-    debugger;
     onSearch({
       country: selectedCountry,
       state: selectedState,
