@@ -12,18 +12,46 @@ import { useStore } from "../context/Store";
 import noPicture from "/no-picture.png";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 function AllEvents() {
   const [events, setEvents] = useState([]);
   const { isAuthenticated } = useStore();
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const countryQP = queryParams.get("country");
+  const stateQP = queryParams.get("state");
+  const friendlyTypeQP = queryParams.get("friendlyType");
+  const friendlyTypeList = friendlyTypeQP
+    ? friendlyTypeQP.split(",")
+    : undefined;
 
-  const getAllEvents = () => {
+  const getFilteredEvent = (country, state, friendlyTypes) => {
+    let queryParamsString = "";
+
+    if (country) {
+      queryParamsString = `country=${country}`;
+    }
+
+    if (state) {
+      queryParamsString = `${
+        queryParamsString ? `${queryParamsString}&` : ""
+      }state=${state}`;
+    }
+
+    if (friendlyTypes) {
+      queryParamsString = `${
+        queryParamsString !== "" ? `&${queryParamsString}&` : ""
+      }friendlyType=${friendlyTypes}`;
+    }
+
+    queryParamsString = queryParamsString && `?${queryParamsString}`;
+
     axios
-      .get(`${API_URL}/events/`)
+      .get(`${API_URL}/events/${queryParamsString}`)
       .then((response) => {
-        setEvents(response.data);
+        setBusinesses(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -33,89 +61,104 @@ function AllEvents() {
   };
 
   useEffect(() => {
-    getAllEvents();
+    getFilteredBusiness(countryQP, stateQP, friendlyTypeQP);
   }, []);
 
   return (
-    <Row>
-      {events &&
-        events.map((event, i) => {
-          return (
-            <Col key={i} span={8}>
-              <Card
-                style={{
-                  width: 350,
-                  marginBottom: "25px",
-                  heigth: "100%",
-                }}
-                loading={loading}
-                hoverable
-                extra={
-                  <NavLink to={`${APP_ROUTES.EVENTS}/${event._id}`}>
-                    <InfoCircleOutlined key="info" /> See details
-                  </NavLink>
-                }
-                cover={
-                  <img
-                    style={{ height: "300px", objectFit: "cover" }}
-                    alt="example"
-                    src={event.imageURL || noPicture}
-                  />
-                }
-              >
-                <Meta
-                  title={event.nameOfTheEvent}
-                  description={
-                    <div>
-                      {event.location} &nbsp;|&nbsp;{" "}
-                      {event.price ? `${event.price} €` : "Free"}
-                    </div>
-                  }
-                  style={{ marginBottom: "15px" }}
-                />
+    <Flex vertical gap="middle">
+      <MainFilters
+        onSearch={(filters) => {
+          const countryCode = filters.country?.iso2;
+          const stateCode = filters.state?.state_code;
+          const friendlyValue = filters.friendlyList.join(",");
 
-                <Flex gap={"middle"}>
-                  {event.isPetFriendly && (
+          getFilteredBusiness(countryCode, stateCode, friendlyValue);
+        }}
+        defaultCountryCode={countryQP}
+        defaultStateCode={stateQP}
+        defaultFriendlyType={friendlyTypeList}
+      />
+
+      <Row className="all">
+        {events &&
+          events.map((event, i) => {
+            return (
+              <Col key={i} span={8}>
+                <Card
+                  style={{
+                    width: 350,
+                    marginBottom: "25px",
+                    heigth: "100%",
+                  }}
+                  loading={loading}
+                  hoverable
+                  extra={
+                    <NavLink to={`${APP_ROUTES.EVENTS}/${event._id}`}>
+                      <InfoCircleOutlined key="info" /> See details
+                    </NavLink>
+                  }
+                  cover={
                     <img
-                      src={pet}
-                      alt="Kid Friendly"
-                      style={{ width: "40px", height: "height" || "auto" }}
+                      style={{ height: "300px", objectFit: "cover" }}
+                      alt="example"
+                      src={event.imageURL || noPicture}
                     />
-                  )}
-                  {event.isChildFriendly && (
-                    <img
-                      src={child}
-                      alt="Kid Friendly"
-                      style={{ width: "40px", height: "height" || "auto" }}
-                    />
-                  )}
-                  {event.isEcoFriendly && (
-                    <img
-                      src={eco}
-                      alt="Eco Friendly"
-                      style={{ width: "40px", height: "height" || "auto" }}
-                    />
-                  )}
-                  {event.isAccessibilityFriendly && (
-                    <img
-                      src={accessibility}
-                      alt="Accessibility Friendly"
-                      style={{ width: "40px", height: "height" || "auto" }}
-                    />
-                  )}
-                  {event.isVeganFriendly && (
-                    <img
-                      src={vegan}
-                      alt="Vegan Friendly"
-                      style={{ width: "40px", height: "height" || "auto" }}
-                    />
-                  )}
-                </Flex>
-              </Card>
-            </Col>
-          );
-        })}
-    </Row>
+                  }
+                >
+                  <Meta
+                    title={event.nameOfTheEvent}
+                    description={
+                      <div>
+                        {event.location} &nbsp;|&nbsp;{" "}
+                        {event.price ? `${event.price} €` : "Free"}
+                      </div>
+                    }
+                    style={{ marginBottom: "15px" }}
+                  />
+
+                  <Flex gap={"middle"}>
+                    {event.isPetFriendly && (
+                      <img
+                        src={pet}
+                        alt="Kid Friendly"
+                        style={{ width: "40px", height: "height" || "auto" }}
+                      />
+                    )}
+                    {event.isChildFriendly && (
+                      <img
+                        src={child}
+                        alt="Kid Friendly"
+                        style={{ width: "40px", height: "height" || "auto" }}
+                      />
+                    )}
+                    {event.isEcoFriendly && (
+                      <img
+                        src={eco}
+                        alt="Eco Friendly"
+                        style={{ width: "40px", height: "height" || "auto" }}
+                      />
+                    )}
+                    {event.isAccessibilityFriendly && (
+                      <img
+                        src={accessibility}
+                        alt="Accessibility Friendly"
+                        style={{ width: "40px", height: "height" || "auto" }}
+                      />
+                    )}
+                    {event.isVeganFriendly && (
+                      <img
+                        src={vegan}
+                        alt="Vegan Friendly"
+                        style={{ width: "40px", height: "height" || "auto" }}
+                      />
+                    )}
+                  </Flex>
+                </Card>
+              </Col>
+            );
+          })}
+      </Row>
+    </Flex>
   );
 }
 
