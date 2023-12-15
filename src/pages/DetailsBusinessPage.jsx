@@ -13,11 +13,14 @@ import Meta from "antd/es/card/Meta";
 import noPicture from "/no-picture.png";
 import { getTypeOfBusiness } from "../utils/formatters";
 import DeleteBusiness from "../components/Delete/DeleteBusiness";
+import { useStore } from "../context/Store";
 
 function DetailsBusiness() {
   const [businessDetails, setBusinessDetails] = useState({});
   const { businessId } = useParams();
   const [loading, setLoading] = useState(true);
+  const { user } = useStore();
+  const isOwner = user._id === businessDetails.owner;
 
   useEffect(() => {
     axios
@@ -41,18 +44,15 @@ function DetailsBusiness() {
       loading={loading}
       hoverable
       extra={getTypeOfBusiness(businessDetails.typeOfBusiness)}
-      cover={
-        <img
-          alt="example"
-          src={businessDetails.imageURL || noPicture}
-        />
+      cover={<img alt="example" src={businessDetails.imageURL || noPicture} />}
+      actions={
+        isOwner && [
+          <NavLink to={`${APP_ROUTES.BUSINESSES}/${businessDetails._id}/edit`}>
+            <EditOutlined key="edit" />
+          </NavLink>,
+          <DeleteBusiness businessId={businessDetails._id} />,
+        ]
       }
-      actions={[
-        <NavLink to={`${APP_ROUTES.BUSINESSES}/${businessDetails._id}/edit`}>
-          <EditOutlined key="edit" />
-        </NavLink>,
-        <DeleteBusiness businessId={businessDetails._id} />,
-      ]}
     >
       <Meta
         title={businessDetails.name}

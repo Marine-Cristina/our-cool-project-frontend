@@ -41,13 +41,21 @@ function BusinessForm() {
   }
 
   const handleUpload = async (formValues) => {
-    console.log(formValues);
     try {
-      const formData = new FormData();
-      formData.append("imageUrl", formValues.upload.fileList[0].originFileObj);
-      const image = await axios.post(`${API_URL}/businesses/upload`, formData);
-      console.log("image", image);
-      handleSubmit(image.data.fileUrl, formValues);
+      if (formValues.upload && formValues.upload.fileList.length > 0) {
+        const formData = new FormData();
+        formData.append(
+          "imageUrl",
+          formValues.upload.fileList[0].originFileObj
+        );
+        const image = await axios.post(
+          `${API_URL}/businesses/upload`,
+          formData
+        );
+        handleSubmit(image.data.fileUrl, formValues);
+      } else {
+        handleSubmit("", formValues);
+      }
     } catch (error) {
       console.log(error);
     }

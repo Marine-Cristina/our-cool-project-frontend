@@ -5,7 +5,7 @@ const Title = () => {
   return (
     <div>
       <Helmet>
-        <title>Spherendly</title>
+        <title>Sphierndly</title>
         <link rel="icon" type="image/png" href="/favicon.ico" />
       </Helmet>
     </div>

@@ -60,7 +60,7 @@ const Layout = ({ children }) => {
                 level={1}
                 style={{ fontSize: "20px", color: "white" }}
               >
-                Spherendly
+                Sphierndly
               </Typography.Title>
             )}
           </Flex>

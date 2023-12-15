@@ -7,7 +7,7 @@ import { useStore } from "../../context/Store";
 
 const SignUp = ({ onCancel }) => {
   const [error, setError] = useState();
-  const { updateAuthToken } = useStore();
+  const { updateAuthToken, updateUser } = useStore();
 
   const handleSubmit = (values) => {
     axios
@@ -18,6 +18,7 @@ const SignUp = ({ onCancel }) => {
       })
       .then((response) => {
         updateAuthToken(response.data.authToken);
+        updateUser(response.data.user);
         setError(false);
         onCancel();
       })

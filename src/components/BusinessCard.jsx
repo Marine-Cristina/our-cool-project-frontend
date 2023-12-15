@@ -15,11 +15,9 @@ import vegan from "/vegan.png";
 import { useStore } from "../context/Store";
 
 function BusinessCard({ businessDetails = {}, loading }) {
-  const { userId } = useStore();
-
-  const isOwner = userId === businessDetails.owner;
-  console.log("userId:", userId);
-  console.log("businessDetails.owner:", businessDetails.owner);
+  const { user } = useStore();
+  debugger;
+  const isOwner = user._id === businessDetails.owner;
 
   return (
     <Card
@@ -32,18 +30,16 @@ function BusinessCard({ businessDetails = {}, loading }) {
       hoverable
       extra={getTypeOfBusiness(businessDetails.typeOfBusiness)}
       cover={<img alt="example" src={businessDetails.imageURL || noPicture} />}
-      actions={[
-        isOwner && (
+      actions={
+        isOwner && [
           <NavLink to={`${APP_ROUTES.BUSINESSES}/${businessDetails._id}/edit`}>
             <EditOutlined key="edit" />
-          </NavLink>
-        ),
-        isOwner && (
+          </NavLink>,
           <DeleteBusiness businessId={businessDetails._id}>
             <DeleteOutlined key="delete" />
-          </DeleteBusiness>
-        ),
-      ]}
+          </DeleteBusiness>,
+        ]
+      }
     >
       <Meta
         title={businessDetails.name}

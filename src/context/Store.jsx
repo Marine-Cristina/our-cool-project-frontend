@@ -1,39 +1,36 @@
 import { createContext, useContext, useState } from "react";
 
 const AUTH_TOKEN_KEY = "at";
+const USER = "user";
 
-const USER_ID = "uid";
-
-export const StoreContext = createContext({ authToken: "", userId: "" });
+export const StoreContext = createContext({ authToken: "", user: undefined });
 
 function Store({ children }) {
   const localStorageAuthToken = localStorage.getItem(AUTH_TOKEN_KEY) || "";
   const [authToken, setAuthToken] = useState(localStorageAuthToken);
-
-  const localStorageUSerId = localStorage.getItem(USER_ID) || "";
-  const [userId, setUserId] = useState("");
+  const localStorageUser = localStorage.getItem(USER) || "";
+  const [user, setUser] = useState(localStorageUser);
 
   const updateAuthToken = (updatedToken) => {
     setAuthToken(updatedToken);
-
     localStorage.setItem(AUTH_TOKEN_KEY, updatedToken);
   };
 
   const removeAuthToken = () => {
     setAuthToken("");
-    setUserId("");
     localStorage.removeItem(AUTH_TOKEN_KEY);
-    localStorage.removeItem(USER_ID);
+    setUser(undefined);
   };
 
-  const updateUserId = (updatedUserId) => {
-    setUserId(updatedUserId);
-    localStorage.setItem(USER_ID, updatedUserId);
+  const updateUser = (updatedUser) => {
+    setUser(updatedUser);
+    localStorage.setItem(USER, updatedUser);
   };
 
   const values = {
     authToken,
-    updateUserId,
+    updateUser,
+    user,
     updateAuthToken,
     isAuthenticated: authToken !== "",
     removeAuthToken,
