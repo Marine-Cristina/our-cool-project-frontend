@@ -120,7 +120,7 @@ function AllBusinesses() {
                     <div>
                       <p>{getTypeOfBusiness(business.typeOfBusiness)}</p>
                       <span>
-                        {`${business.country.name}, ${business.state.name}.`}
+                        {/* {`${business.country.name}, ${business.state.name}.`} */}
                       </span>
                     </div>
                   }
