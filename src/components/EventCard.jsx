@@ -46,8 +46,11 @@ function EventCard({ eventDetails, loading }) {
         }
         style={{ marginBottom: "15px" }}
       />
+      <div>
+        <p>{eventDetails.description}</p>
+        <p>{eventDetails.contact}</p>
+      </div>
 
-      <input type="file" onChange={(e) => setImgUpload(e.target.files[0])} />
       <Flex gap={"middle"}>
         {eventDetails.isPetFriendly && (
           <img

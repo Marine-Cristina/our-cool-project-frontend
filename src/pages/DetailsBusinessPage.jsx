@@ -57,10 +57,17 @@ function DetailsBusiness() {
     >
       <Meta
         title={businessDetails.name}
-        description={businessDetails.description}
+        description={
+          businessDetails.state?.name && businessDetails.country?.name
+            ? `${businessDetails.state.name}, ${businessDetails.country.name}`
+            : ""
+        }
         style={{ marginBottom: "15px" }}
       />
-      <div>{businessDetails.contact}</div>
+      <div>
+        <p>{businessDetails.description}</p>
+        <p>{businessDetails.contact}</p>
+      </div>
       <Flex gap={"middle"}>
         {businessDetails.isPetFriendly && (
           <img

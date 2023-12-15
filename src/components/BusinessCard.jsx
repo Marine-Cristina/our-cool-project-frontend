@@ -49,6 +49,7 @@ function BusinessCard({ businessDetails = {}, loading }) {
         }
         style={{ marginBottom: "15px" }}
       />
+      <p>{businessDetails.description}</p>
 
       <Flex gap={"middle"}>
         {businessDetails.isPetFriendly && (

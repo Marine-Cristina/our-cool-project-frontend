@@ -110,8 +110,10 @@ function AllEvents() {
                     title={event.nameOfTheEvent}
                     description={
                       <div>
-                        {event.location} &nbsp;|&nbsp;{" "}
-                        {event.price ? `${event.price} €` : "Free"}
+                        <p>{event.price ? `${event.price} €` : "Free"}</p>
+                        <span>
+                          {`${event.country.name}, ${event.state.name}.`}
+                        </span>
                       </div>
                     }
                     style={{ marginBottom: "15px" }}
