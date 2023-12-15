@@ -37,6 +37,7 @@ function DetailsBusiness() {
 
   return (
     <Card
+      className="details-card"
       style={{
         width: 550,
         marginBottom: "25px",

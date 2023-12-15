@@ -16,7 +16,6 @@ import { useStore } from "../context/Store";
 
 function BusinessCard({ businessDetails = {}, loading }) {
   const { user } = useStore();
-  debugger;
   const isOwner = user._id === businessDetails.owner;
 
   return (

@@ -43,7 +43,6 @@ const EventForm = () => {
   }
 
   const handleUpload = async (formValues) => {
-    console.log(formValues);
     try {
       if (formValues.upload && formValues.upload.fileList.length > 0) {
         const formData = new FormData();
@@ -107,8 +106,8 @@ const EventForm = () => {
               }
             : {
                 ...eventDetails,
-                country: eventDetails.country.iso2,
-                state: eventDetails.state.state_code,
+                // country: eventDetails.country.iso2,
+                // state: eventDetails.state.state_code,
               }
         }
         onFinish={handleUpload}
@@ -135,9 +134,6 @@ const EventForm = () => {
           <Upload name="logo" action="/upload.do" listType="picture">
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
-        </Form.Item>
-        <Form.Item label="Organizer" name="organizer">
-          <Input value="Change this for business.name" disabled />
         </Form.Item>
         <Form.Item
           label="Country"
@@ -199,9 +195,7 @@ const EventForm = () => {
             value={selectedState}
           />
         </Form.Item>
-        <Form.Item label="Date" name="date">
-          <Date />
-        </Form.Item>
+
         <Form.Item label="Price" name="price">
           <InputNumber type="number" min={0} suffix="€" />
         </Form.Item>

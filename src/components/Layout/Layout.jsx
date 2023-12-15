@@ -9,6 +9,7 @@ import {
   ScheduleOutlined,
   PlusCircleOutlined,
   LogoutOutlined,
+  DesktopOutlined,
 } from "@ant-design/icons";
 import {
   Layout as AntLayout,
@@ -75,6 +76,8 @@ const Layout = ({ children }) => {
                 navigate(APP_ROUTES.BUSINESSES);
               } else if (key === "events-link") {
                 navigate(APP_ROUTES.EVENTS);
+              } else if (key === "about-link") {
+                navigate(APP_ROUTES.ABOUT);
               } else if (key === "create-business-link") {
                 navigate(APP_ROUTES.NEW_BUSINESS);
               } else if (key === "create-event-link") {
@@ -100,6 +103,11 @@ const Layout = ({ children }) => {
                 key: "events-link",
                 icon: <ScheduleOutlined />,
                 label: "Events",
+              },
+              {
+                key: "about-link",
+                icon: <DesktopOutlined />,
+                label: "About us",
               },
               isAuthenticated === true
                 ? {

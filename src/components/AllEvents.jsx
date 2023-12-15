@@ -13,6 +13,7 @@ import noPicture from "/no-picture.png";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import { NavLink, useLocation } from "react-router-dom";
+import MainFilters from "./Filters/MainFilters";
 
 function AllEvents() {
   const [events, setEvents] = useState([]);
@@ -51,7 +52,7 @@ function AllEvents() {
     axios
       .get(`${API_URL}/events/${queryParamsString}`)
       .then((response) => {
-        setBusinesses(response.data);
+        setEvents(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -61,7 +62,7 @@ function AllEvents() {
   };
 
   useEffect(() => {
-    getFilteredBusiness(countryQP, stateQP, friendlyTypeQP);
+    getFilteredEvent(countryQP, stateQP, friendlyTypeQP);
   }, []);
 
   return (
@@ -72,7 +73,7 @@ function AllEvents() {
           const stateCode = filters.state?.state_code;
           const friendlyValue = filters.friendlyList.join(",");
 
-          getFilteredBusiness(countryCode, stateCode, friendlyValue);
+          getFilteredEvent(countryCode, stateCode, friendlyValue);
         }}
         defaultCountryCode={countryQP}
         defaultStateCode={stateQP}

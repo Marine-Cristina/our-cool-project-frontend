@@ -29,7 +29,6 @@ function EventCard({ eventDetails, loading }) {
       }}
       loading={loading}
       hoverable
-      extra={eventDetails.organizer}
       cover={<img alt="example" src={eventDetails.imageURL || noPicture} />}
       actions={[
         <NavLink to={`${APP_ROUTES.EVENTS}/${eventDetails._id}/edit`}>
