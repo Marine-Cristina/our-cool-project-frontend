@@ -71,9 +71,7 @@ function BusinessForm() {
   console.log({ cid: form.getFieldValue("country")?.id });
 
   return (
-    <Flex gap={"middle"}>
-      <BusinessCard businessDetails={businessDetails} loading={loading} />
-
+    <Flex gap={"middle"} className="edit-view">
       <Form
         form={form}
         layout="vertical"
@@ -119,7 +117,7 @@ function BusinessForm() {
           name="upload"
           label="Upload"
           valuePropName="im"
-          extra="longgggggggggggggggggggggggggggggggggg"
+          extra="Choose a cool image for your business."
         >
           <Upload name="logo" action="/upload.do" listType="picture">
             <Button icon={<UploadOutlined />}>Click to upload</Button>
@@ -247,6 +245,7 @@ function BusinessForm() {
           <Button htmlType="Submit">Publish Business</Button>
         </Form.Item>
       </Form>
+      <BusinessCard businessDetails={businessDetails} loading={loading} />
     </Flex>
   );
 }

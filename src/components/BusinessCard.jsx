@@ -12,12 +12,18 @@ import eco from "/eco.png";
 import noPicture from "/no-picture.png";
 import pet from "/pet.png";
 import vegan from "/vegan.png";
+import { useStore } from "../context/Store";
 
-function BusinessCard({ businessDetails = {}, loading, currentUserId }) {
-  const isCurrentUserOwner = true;
+function BusinessCard({ businessDetails = {}, loading }) {
+  const { userId } = useStore();
+
+  const isOwner = userId === businessDetails.owner;
+  console.log("userId:", userId);
+  console.log("businessDetails.owner:", businessDetails.owner);
 
   return (
     <Card
+      className="card-edit-view"
       style={{
         width: 550,
         marginBottom: "25px",
@@ -27,12 +33,12 @@ function BusinessCard({ businessDetails = {}, loading, currentUserId }) {
       extra={getTypeOfBusiness(businessDetails.typeOfBusiness)}
       cover={<img alt="example" src={businessDetails.imageURL || noPicture} />}
       actions={[
-        isCurrentUserOwner && (
+        isOwner && (
           <NavLink to={`${APP_ROUTES.BUSINESSES}/${businessDetails._id}/edit`}>
             <EditOutlined key="edit" />
           </NavLink>
         ),
-        isCurrentUserOwner && (
+        isOwner && (
           <DeleteBusiness businessId={businessDetails._id}>
             <DeleteOutlined key="delete" />
           </DeleteBusiness>

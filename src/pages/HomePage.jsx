@@ -1,5 +1,5 @@
 import { Flex } from "antd";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../core/constants";
 import Header from "/headerimage.png";
 import MainFilters from "../components/Filters/MainFilters";
@@ -33,7 +33,9 @@ function HomePage() {
             Vegan-Friendly, and Accessible Businesses & Events.
           </h3>
         </Flex>
-        <img src={Header} alt="Spherendly header image" />
+        <NavLink to={`${APP_ROUTES.ABOUT}`}>
+          <img src={Header} alt="Spherendly header image" />
+        </NavLink>
       </Flex>
 
       <MainFilters onSearch={handleSearch} />

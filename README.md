@@ -161,3 +161,6 @@ https://www.flaticon.com/
 
 Countries & cities:
 npm install react-country-state-city
+
+Images:
+npm install cloudinary multer multer-storage-cloudinary

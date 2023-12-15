@@ -52,7 +52,7 @@ function AllEvents() {
                 hoverable
                 extra={
                   <NavLink to={`${APP_ROUTES.EVENTS}/${event._id}`}>
-                    <InfoCircleOutlined key="info" />
+                    <InfoCircleOutlined key="info" /> See details
                   </NavLink>
                 }
                 cover={

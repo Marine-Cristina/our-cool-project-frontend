@@ -8,6 +8,7 @@ import { useStore } from "../../context/Store";
 const Login = ({ onCancel }) => {
   const [error, setError] = useState(false);
   const { updateAuthToken } = useStore();
+  const { updateUserId } = useStore();
 
   const handleSubmit = (values) => {
     axios
@@ -18,6 +19,7 @@ const Login = ({ onCancel }) => {
       .then((response) => {
         console.log(response);
         updateAuthToken(response.data.authToken);
+        updateUserId(response.data.userId);
         setError(false);
         onCancel();
       })

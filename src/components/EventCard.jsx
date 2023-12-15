@@ -22,6 +22,7 @@ function EventCard({ eventDetails, loading }) {
 
   return (
     <Card
+      className="card-edit-view"
       style={{
         width: 550,
         marginBottom: "25px",

@@ -39,22 +39,21 @@ function AllBusinesses() {
 
   return (
     <>
-      <Row>
+      <Row className="all">
         {businesses &&
           businesses.map((business, i) => (
             <Col key={i} span={8}>
               <Card
-                className="AllBusinesses"
+                className="card"
                 style={{
                   width: 350,
                   marginBottom: "25px",
-                  heigth: "100%",
                 }}
                 loading={loading}
                 hoverable
                 extra={
                   <NavLink to={`${APP_ROUTES.BUSINESSES}/${business._id}`}>
-                    <InfoCircleOutlined key="info" />
+                    <InfoCircleOutlined key="info" /> See details
                   </NavLink>
                 }
                 cover={

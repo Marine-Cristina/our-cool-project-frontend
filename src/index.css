@@ -42,10 +42,12 @@ h3 {
   align-items: center;
   width: 50%;
 }
-.AllBusinesses {
-  display: flex;
-  flex-direction: column;
-  align-content: space-between;
+
+.all {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 5px 5px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -116,7 +118,21 @@ h3 {
   .ant-card {
     display: block !important;
   }
+  .edit-view {
+    display: flex;
+    flex-direction: column;
+  }
+  .card-edit-view {
+    max-width: 300px;
+  }
+  .all {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .card {
+    max-width: 300px;
+  }
 }
+
 /* Medium screen */
 @media (min-width: 577px) and (max-width: 992px) {
   .AllBusinesses {
@@ -130,6 +146,19 @@ h3 {
   }
   img {
     max-height: 200px;
+  }
+  .edit-view {
+    display: flex;
+    flex-direction: column;
+  }
+  .card-edit-view {
+    max-width: 300px;
+  }
+  .all {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card {
+    max-width: 300px;
   }
 }
 

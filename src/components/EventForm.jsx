@@ -69,9 +69,7 @@ const EventForm = () => {
   };
 
   return (
-    <Flex gap={"middle"}>
-      <EventCard eventDetails={eventDetails} loading={loading} />
-
+    <Flex gap={"middle"} className="edit-view">
       <Form
         form={form}
         layout="vertical"
@@ -118,7 +116,7 @@ const EventForm = () => {
           name="upload"
           label="Upload"
           valuePropName="im"
-          extra="longgggggggggggggggggggggggggggggggggg"
+          extra="Choose a cool image for your event."
         >
           <Upload name="logo" action="/upload.do" listType="picture">
             <Button icon={<UploadOutlined />}>Click to upload</Button>
@@ -233,6 +231,7 @@ const EventForm = () => {
           </Button>
         </Form.Item>
       </Form>
+      <EventCard eventDetails={eventDetails} loading={loading} />
     </Flex>
   );
 };
